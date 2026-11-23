@@ -10,6 +10,8 @@ import mountainFooterImage from "@/assets/fap-mountain-footer.png";
 import seedlingImage from "@/assets/fap-seedling-new.png";
 import seedlingPhotoImage from "@/assets/fap-seedling.jpg";
 import storyImage from "@/assets/fap-story.jpg";
+import logoColorImg from "@/assets/fap-logo-color.png";
+import logoBlancoImg from "@/assets/fap-logo-blanco.webp";
 
 const EcuadorMap = dynamic(() => import("@/components/EcuadorMap"), {
   ssr: false,
@@ -141,46 +143,51 @@ function ArrowUpRight({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+function CrossfadeImage({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  const [layers, setLayers] = useState<{ src: string; alt: string; id: number }[]>([
+    { src, alt, id: 0 },
+  ]);
+
+  useEffect(() => {
+    setLayers((prev) => {
+      const last = prev[prev.length - 1];
+      if (last && last.src === src) return prev;
+      return [...prev.slice(-1), { src, alt, id: Date.now() + Math.random() }];
+    });
+  }, [src, alt]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden">
+      {layers.map((layer, idx) => (
+        <img
+          key={layer.id}
+          src={layer.src}
+          alt={layer.alt}
+          className={`absolute inset-0 w-full h-full object-cover ${
+            idx > 0 ? "animate-crossfade" : ""
+          } ${className}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 function Logo({ light = false }: { light?: boolean }) {
   return (
-    <a className={`flex items-center gap-3.5 transition-opacity hover:opacity-90 ${light ? "text-white" : "text-[#10120f]"}`} href="#inicio" aria-label="Fundación Amazonía Productiva, inicio">
-      {/* Isotipo oficial FAP: corazón orgánico con gota/semilla interior y brote de 2 hojas arriba */}
-      <svg className="w-11 h-12 shrink-0" viewBox="0 0 64 70" fill="none" aria-hidden="true">
-        {/* Tallo y corazón con lazo central */}
-        <path
-          d="M32 62 C20 52 9 43 9 30 C9 20.5 16.5 14 24.5 14 C31 14 35.5 19.5 35.5 27 C35.5 34 33 41 29.5 41 C26 41 24 35 24 27.5 C24 19 29.5 13.5 37.5 13.5 C46 13.5 52 20 52 29 C52 42 42 52 32 62 Z"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {/* Tallo brotando hacia las hojas */}
-        <path
-          d="M36.5 14 C37 9 39 5.5 43 3"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-        />
-        {/* Hoja superior derecha */}
-        <path
-          d="M42.5 5.5 C46 2 52 2 53.5 3.5 C54.5 5 53 11 48 13.5 C44.5 15 41.5 12.5 42.5 5.5 Z"
-          stroke="currentColor"
-          strokeWidth="2.1"
-          strokeLinejoin="round"
-        />
-        {/* Hoja izquierda */}
-        <path
-          d="M36 9.5 C31 6.5 25.5 7.5 24 9.5 C23 11 26.5 15.5 31.5 15 C34.5 14.5 36.5 12 36 9.5 Z"
-          stroke="currentColor"
-          strokeWidth="2.1"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <div className="flex flex-col leading-[1.08] tracking-wide uppercase font-light text-[11px] sm:text-xs">
-        <span>Fundación</span>
-        <span>Amazonía</span>
-        <span>Productiva</span>
-      </div>
+    <a className="flex items-center transition-opacity hover:opacity-90" href="#inicio" aria-label="Fundación Amazonía Productiva, inicio">
+      <img
+        src={getImageSrc(light ? logoBlancoImg : logoColorImg)}
+        alt="Fundación Amazonía Productiva"
+        className="h-11 sm:h-12 w-auto object-contain"
+      />
     </a>
   );
 }
@@ -398,7 +405,7 @@ export default function Page() {
             : "bg-transparent py-6"
         }`}
       >
-        <Logo light />
+        <Logo light={isScrolled} />
         
         <nav className={`fixed inset-0 bg-[#0c0e0b]/95 backdrop-blur-xl flex flex-col justify-center items-center gap-6 text-lg font-medium transition-all duration-300 md:static md:inset-auto md:bg-transparent md:backdrop-blur-none md:flex-row md:gap-8 md:text-sm lg:gap-10 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto"}`}>
           <a href="#nosotros" onClick={() => setMenuOpen(false)} className="hover:text-[#B7D84B] transition-colors">¿Quiénes somos?</a>
@@ -491,51 +498,47 @@ export default function Page() {
       <section id="nosotros" className="py-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
           
-          {/* Lado Izquierdo: Más grande y ancho (7 cols), pegado al borde izquierdo, cuadradito superior pegado al rectángulo inferior */}
-          <div className="lg:col-span-7 w-full pr-0 lg:pr-4">
-            <div className="grid grid-cols-3 gap-1.5">
+          {/* Lado Izquierdo: Ligeramente más compacto (-15px) y bien acomodado con transición suave */}
+          <div className="lg:col-span-6 w-full pr-3 sm:pr-4 lg:pr-6">
+            <div className="grid grid-cols-3 gap-1.5 w-[calc(100%-15px)]">
               
-              {/* Fila 1 con items-end para que el cuadradito baje y quede pegado al rectángulo de abajo */}
+              {/* Fila 1 con self-end para que el cuadradito baje y quede pegado al rectángulo de abajo */}
               <div className="col-span-2 aspect-[16/10] rounded-none overflow-hidden shadow-md bg-neutral-200">
-                <img
-                  key={`col-0-${collageTick}`}
+                <CrossfadeImage
                   src={getImageSrc(galleryPool[(0 + collageTick) % galleryPool.length].img)}
                   alt={galleryPool[(0 + collageTick) % galleryPool.length].alt}
-                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                  className="hover:scale-[1.03] transition-transform duration-700"
                 />
               </div>
               <div className="col-span-1 self-end aspect-square w-full rounded-none overflow-hidden shadow-md bg-neutral-200">
-                <img
-                  key={`col-1-${collageTick}`}
+                <CrossfadeImage
                   src={getImageSrc(galleryPool[(1 + collageTick) % galleryPool.length].img)}
                   alt={galleryPool[(1 + collageTick) % galleryPool.length].alt}
-                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                  className="hover:scale-[1.03] transition-transform duration-700"
                 />
               </div>
 
               {/* Fila 2: Cuadrado (1 col) + Rectángulo horizontal (2 cols) pegados justo debajo */}
               <div className="col-span-1 aspect-square rounded-none overflow-hidden shadow-md bg-neutral-200">
-                <img
-                  key={`col-2-${collageTick}`}
+                <CrossfadeImage
                   src={getImageSrc(galleryPool[(2 + collageTick) % galleryPool.length].img)}
                   alt={galleryPool[(2 + collageTick) % galleryPool.length].alt}
-                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                  className="hover:scale-[1.03] transition-transform duration-700"
                 />
               </div>
               <div className="col-span-2 aspect-[16/10] rounded-none overflow-hidden shadow-md bg-neutral-200">
-                <img
-                  key={`col-3-${collageTick}`}
+                <CrossfadeImage
                   src={getImageSrc(galleryPool[(3 + collageTick) % galleryPool.length].img)}
                   alt={galleryPool[(3 + collageTick) % galleryPool.length].alt}
-                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                  className="hover:scale-[1.03] transition-transform duration-700"
                 />
               </div>
 
             </div>
           </div>
 
-          {/* Lado Derecho: 5 cols con el texto y las 4 viñetas */}
-          <div className="lg:col-span-5 px-6 sm:px-10 lg:px-12 pt-12 lg:pt-0 space-y-8">
+          {/* Lado Derecho: 6 cols con el texto y las 4 viñetas */}
+          <div className="lg:col-span-6 px-6 sm:px-10 lg:px-12 pt-12 lg:pt-0 space-y-8">
             <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
               <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
               Conoce a FAP
@@ -805,68 +808,61 @@ export default function Page() {
           </div>
         </div>
 
-        {/* MOSAICO FULL-WIDTH (Todo el ancho completo, margen mínimo gap-1, rectángulos y cuadrados sin repetición) */}
+        {/* MOSAICO FULL-WIDTH (Todo el ancho completo, margen mínimo gap-1, rectángulos y cuadrados con crossfade suave) */}
         <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-1">
           
           {/* Bloque principal 2x2 */}
           <div className="col-span-2 row-span-2 aspect-square rounded-none overflow-hidden bg-neutral-200">
-            <img
-              key={`gal-0-${galleryTick}`}
+            <CrossfadeImage
               src={getImageSrc(galleryPool[(0 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(0 + galleryTick) % galleryPool.length].alt}
-              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+              className="hover:scale-105 transition-transform duration-700"
             />
           </div>
 
           {/* Fila superior derecha: 2 cuadrados + 1 rectángulo horizontal (2:1) */}
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
-            <img
-              key={`gal-t1-${galleryTick}`}
+            <CrossfadeImage
               src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(1 + galleryTick) % galleryPool.length].alt}
-              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+              className="hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
-            <img
-              key={`gal-t2-${galleryTick}`}
+            <CrossfadeImage
               src={getImageSrc(galleryPool[(2 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(2 + galleryTick) % galleryPool.length].alt}
-              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+              className="hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
-            <img
-              key={`gal-t-rect-${galleryTick}`}
+            <CrossfadeImage
               src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
-              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+              className="hover:scale-105 transition-transform duration-700"
             />
           </div>
 
           {/* Fila inferior derecha: 1 rectángulo horizontal (2:1) + 2 cuadrados */}
           <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
-            <img
-              key={`gal-b-rect-${galleryTick}`}
+            <CrossfadeImage
               src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
-              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+              className="hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
-            <img
-              key={`gal-b1-${galleryTick}`}
+            <CrossfadeImage
               src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(1 + galleryTick) % galleryPool.length].alt}
-              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+              className="hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-[#ece8dd]">
-            <img
-              key={`gal-b2-${galleryTick}`}
+            <CrossfadeImage
               src={getImageSrc(galleryPool[(0 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(0 + galleryTick) % galleryPool.length].alt}
-              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+              className="hover:scale-105 transition-transform duration-700"
             />
           </div>
 
@@ -979,7 +975,7 @@ export default function Page() {
             
             {/* Newsletter Integrado Directamente */}
             <div className="lg:col-span-5 space-y-4">
-              <Logo light />
+              <Logo light={true} />
               <p className="text-sm text-neutral-300 leading-relaxed mt-2 max-w-sm">
                 Súmate a nuestro boletín para recibir historias de territorio, convocatorias de voluntariado y avances de proyectos.
               </p>

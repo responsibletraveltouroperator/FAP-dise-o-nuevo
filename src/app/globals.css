@@ -103,6 +103,22 @@ h1, h2, h3, h4 {
   animation-play-state: paused;
 }
 
+@keyframes crossfadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-crossfade {
+  animation: crossfadeIn 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: opacity, transform;
+}
+
 /* Fondo interactivo del mapa con fundido suave */
 .map-photo-fade {
   mask-image: radial-gradient(circle at 75% 50%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
