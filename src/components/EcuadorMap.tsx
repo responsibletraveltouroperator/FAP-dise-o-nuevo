@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ComponentProps } from "react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import continentGeo from "@/assets/ecuador-continent.json";
 import galapagosGeo from "@/assets/ecuador-galapagos.json";
+
+type GeoProp = ComponentProps<typeof Geographies>["geography"];
+const continentGeography = continentGeo as unknown as GeoProp;
+const galapagosGeography = galapagosGeo as unknown as GeoProp;
 
 export interface MapProject {
   id: string;
@@ -134,7 +138,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
 
           {/* Capa base con relieve topográfico 3D */}
           <g filter="url(#topo-relief)">
-            <Geographies geography={continentGeo}>
+            <Geographies geography={continentGeography}>
               {({ geographies }) =>
                 geographies.map((geo) => {
                   const name = geo.properties?.name || "";
@@ -146,29 +150,14 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                       key={geo.rsmKey}
                       geography={geo}
                       fill={isHovered ? "#9ecb36" : fillUrl}
-                      stroke="rgba(255, 255, 255, 0.35)"
-                      strokeWidth={0.8}
+                      stroke={isHovered ? "#ffffff" : "rgba(255, 255, 255, 0.35)"}
+                      strokeWidth={isHovered ? 1.2 : 0.8}
                       onMouseEnter={() => setHoveredProvince(name)}
                       onMouseLeave={() => setHoveredProvince(null)}
                       style={{
-                        default: {
-                          fill: fillUrl,
-                          stroke: "rgba(255, 255, 255, 0.35)",
-                          strokeWidth: 0.8,
-                          outline: "none",
-                          transition: "fill 220ms ease"
-                        },
-                        hover: {
-                          fill: "#9ecb36",
-                          stroke: "#ffffff",
-                          strokeWidth: 1.2,
-                          outline: "none",
-                          cursor: "default"
-                        },
-                        pressed: {
-                          fill: "#9ecb36",
-                          outline: "none"
-                        }
+                        fill: isHovered ? "#9ecb36" : fillUrl,
+                        outline: "none",
+                        transition: "fill 220ms ease"
                       }}
                     />
                   );
@@ -179,7 +168,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
 
           {/* Capa superpuesta de curvas de nivel topográficas */}
           <g className="pointer-events-none">
-            <Geographies geography={continentGeo}>
+            <Geographies geography={continentGeography}>
               {({ geographies }) =>
                 geographies.map((geo) => (
                   <Geography
@@ -187,11 +176,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                     geography={geo}
                     fill="url(#topo-contours)"
                     stroke="none"
-                    style={{
-                      default: { fill: "url(#topo-contours)", outline: "none" },
-                      hover: { fill: "url(#topo-contours)", outline: "none" },
-                      pressed: { fill: "url(#topo-contours)", outline: "none" }
-                    }}
+                    style={{ fill: "url(#topo-contours)", outline: "none" }}
                   />
                 ))
               }
@@ -284,27 +269,22 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
             </defs>
 
             <g filter="url(#galapagos-relief)">
-              <Geographies geography={galapagosGeo}>
+              <Geographies geography={galapagosGeography}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      fill="url(#grad-galapagos)"
+                      fill={hoveredProvince === "Galápagos" ? "#9ecb36" : "url(#grad-galapagos)"}
                       stroke="rgba(255, 255, 255, 0.5)"
                       strokeWidth={0.7}
+                      onMouseEnter={() => setHoveredProvince("Galápagos")}
+                      onMouseLeave={() => setHoveredProvince(null)}
                       style={{
-                        default: {
-                          fill: "url(#grad-galapagos)",
-                          stroke: "rgba(255, 255, 255, 0.5)",
-                          strokeWidth: 0.7,
-                          outline: "none"
-                        },
-                        hover: {
-                          fill: "#9ecb36",
-                          outline: "none",
-                          cursor: "pointer"
-                        }
+                        fill: hoveredProvince === "Galápagos" ? "#9ecb36" : "url(#grad-galapagos)",
+                        outline: "none",
+                        cursor: "pointer",
+                        transition: "fill 220ms ease"
                       }}
                     />
                   ))
@@ -314,7 +294,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
 
             {/* Curvas de nivel sobre Galápagos */}
             <g className="pointer-events-none">
-              <Geographies geography={galapagosGeo}>
+              <Geographies geography={galapagosGeography}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
                     <Geography
@@ -322,10 +302,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                       geography={geo}
                       fill="url(#galapagos-contours)"
                       stroke="none"
-                      style={{
-                        default: { fill: "url(#galapagos-contours)", outline: "none" },
-                        hover: { fill: "url(#galapagos-contours)", outline: "none" }
-                      }}
+                      style={{ fill: "url(#galapagos-contours)", outline: "none" }}
                     />
                   ))
                 }
