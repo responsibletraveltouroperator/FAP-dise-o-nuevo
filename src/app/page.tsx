@@ -979,7 +979,7 @@ export default function Page() {
       <footer id="contacto" className="relative bg-[#142b1f] text-white pt-14 pb-12 mt-44 sm:mt-56">
         
         {/* Silueta de montaña real integrada al footer: la mitad inferior se funde con el color del footer */}
-        <div className="absolute bottom-full left-0 right-0 w-full overflow-hidden pointer-events-none z-10 translate-y-[42%]">
+        <div className="absolute bottom-full left-0 right-0 w-full overflow-hidden pointer-events-none z-10 translate-y-[58%]">
           <img
             src={getImageSrc(mountainFooterImage)}
             alt=""
