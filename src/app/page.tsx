@@ -186,7 +186,11 @@ function Logo({ light = false }: { light?: boolean }) {
       <img
         src={getImageSrc(light ? logoBlancoImg : logoColorImg)}
         alt="Fundación Amazonía Productiva"
-        className="h-11 sm:h-12 w-auto object-contain"
+        className={
+          light
+            ? "h-[68px] sm:h-[72px] -my-2.5 w-auto object-contain"
+            : "h-11 sm:h-12 w-auto object-contain"
+        }
       />
     </a>
   );
@@ -389,10 +393,7 @@ export default function Page() {
   return (
     <main
       id="inicio"
-      className="relative min-h-screen text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black"
-      style={{
-        background: "linear-gradient(180deg, #F7F2E6 0%, #EDF2E2 25%, #F4EFE2 50%, #EAF1DF 75%, #F7F2E6 100%)"
-      }}
+      className="relative min-h-screen bg-[#E6D3B8] text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black"
     >
       
       {/* ============================================================== */}
@@ -629,16 +630,18 @@ export default function Page() {
       {/* ============================================================== */}
       <section id="mapa" className="relative py-24 w-full px-6 sm:px-10 lg:px-12 overflow-hidden">
         
-        {/* Fondo full width: foto clara del proyecto con ligero desenfoque de cámara (bokeh suave) */}
-        <div className="absolute inset-0 z-0 pointer-events-none w-full h-full overflow-hidden">
-          <img
-            key={currentProject.id}
-            src={getImageSrc(currentProject.bgPhoto)}
-            alt=""
-            className="w-full h-full object-cover opacity-50 blur-[3px] scale-105 animate-crossfade"
-          />
-          <div className="absolute inset-0 bg-[#F7F2E6]/45" />
-        </div>
+        {/* Fondo full width: SOLO aparece cuando hay una categoría o proyecto seleccionado; al volver a lo general desaparece */}
+        {(selectedCategory !== null || mapSelectedProjectId !== null) && (
+          <div className="absolute inset-0 z-0 pointer-events-none w-full h-full overflow-hidden animate-fadeIn">
+            <img
+              key={currentProject.id}
+              src={getImageSrc(currentProject.bgPhoto)}
+              alt=""
+              className="w-full h-full object-cover opacity-50 blur-[3px] scale-105 animate-crossfade"
+            />
+            <div className="absolute inset-0 bg-[#E6D3B8]/45" />
+          </div>
+        )}
 
         <div className="relative z-10 max-w-[1440px] mx-auto">
           

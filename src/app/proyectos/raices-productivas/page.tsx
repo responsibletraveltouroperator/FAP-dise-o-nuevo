@@ -104,10 +104,7 @@ export default function RaicesProductivasPage() {
 
   return (
     <main
-      className="relative min-h-screen text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black"
-      style={{
-        background: "linear-gradient(180deg, #F7F2E6 0%, #EDF2E2 45%, #EAF1DF 80%, #F7F2E6 100%)"
-      }}
+      className="relative min-h-screen bg-[#E6D3B8] text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black"
     >
       
       {/* ============================================================== */}
