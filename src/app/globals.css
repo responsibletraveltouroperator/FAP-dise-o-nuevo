@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  --black: #0c0e0b;
+  --dark-green: #142b1f;
+  --forest: #225333;
+  --leaf: #69a838;
+  --lime: #9ecb36;
+  --mustard: #e3a72f;
+  --sand-bg: #f8f4ec;
+  --sand-card: #eee6d8;
+  --white: #ffffff;
+  color: var(--black);
+  background: var(--sand-bg);
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-synthesis: none;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--sand-bg);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+  button, a {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* Tipografía sin serif anticuada */
+h1, h2, h3, h4 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+/* Animaciones */
+@keyframes pulsePin {
+  0% { transform: scale(0.9); opacity: 0.9; }
+  50% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(0.9); opacity: 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes lineReveal {
+  0% {
+    transform: translateY(105%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.animate-line-reveal {
+  display: inline-block;
+  animation: lineReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-line-reveal-delay-1 {
+  display: inline-block;
+  opacity: 0;
+  animation: lineReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  will-change: transform, opacity;
+}
+
+.animate-line-reveal-delay-2 {
+  display: inline-block;
+  opacity: 0;
+  animation: lineReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  will-change: transform, opacity;
+}
+
+.animate-pulse-pin {
+  animation: pulsePin 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Fondo interactivo del mapa con fundido suave */
+.map-photo-fade {
+  mask-image: radial-gradient(circle at 75% 50%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(circle at 75% 50%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+}

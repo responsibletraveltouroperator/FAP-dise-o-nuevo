@@ -1,0 +1,10 @@
+{
+  "description": "A design-focused application for exploring and refining visual concepts, helping users turn early ideas into a clear creative direction.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
