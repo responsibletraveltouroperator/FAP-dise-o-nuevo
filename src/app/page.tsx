@@ -143,26 +143,43 @@ function ArrowUpRight({ className = "w-4 h-4" }: { className?: string }) {
 
 function Logo({ light = false }: { light?: boolean }) {
   return (
-    <a className={`flex items-center gap-3 transition-opacity hover:opacity-90 ${light ? "text-white" : "text-[#10120f]"}`} href="#inicio" aria-label="FAP, inicio">
-      <svg className="w-10 h-10 shrink-0" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+    <a className={`flex items-center gap-3.5 transition-opacity hover:opacity-90 ${light ? "text-white" : "text-[#10120f]"}`} href="#inicio" aria-label="Fundación Amazonía Productiva, inicio">
+      {/* Isotipo oficial FAP: corazón orgánico con gota/semilla interior y brote de 2 hojas arriba */}
+      <svg className="w-11 h-12 shrink-0" viewBox="0 0 64 70" fill="none" aria-hidden="true">
+        {/* Tallo y corazón con lazo central */}
         <path
-          d="M28 48C19 38 10 31 10 21.5 10 13.5 16.2 8 23.2 8c5 0 8.1 3.4 9.2 6.2C34 11 37 8.8 41.2 8.8c2 0 3.8.5 5.4 1.4-1.4 6.2-5.1 10.2-10.8 11.5 1.5 10.2-2 18.5-7.8 26.3Z"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M29 42c-2-8.2-.4-15.5 5.2-21.7M24 10c4.5 3.8 7 7.4 8.5 11.4"
+          d="M32 62 C20 52 9 43 9 30 C9 20.5 16.5 14 24.5 14 C31 14 35.5 19.5 35.5 27 C35.5 34 33 41 29.5 41 C26 41 24 35 24 27.5 C24 19 29.5 13.5 37.5 13.5 C46 13.5 52 20 52 29 C52 42 42 52 32 62 Z"
           stroke="currentColor"
           strokeWidth="2.3"
           strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Tallo brotando hacia las hojas */}
+        <path
+          d="M36.5 14 C37 9 39 5.5 43 3"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+        />
+        {/* Hoja superior derecha */}
+        <path
+          d="M42.5 5.5 C46 2 52 2 53.5 3.5 C54.5 5 53 11 48 13.5 C44.5 15 41.5 12.5 42.5 5.5 Z"
+          stroke="currentColor"
+          strokeWidth="2.1"
+          strokeLinejoin="round"
+        />
+        {/* Hoja izquierda */}
+        <path
+          d="M36 9.5 C31 6.5 25.5 7.5 24 9.5 C23 11 26.5 15.5 31.5 15 C34.5 14.5 36.5 12 36 9.5 Z"
+          stroke="currentColor"
+          strokeWidth="2.1"
+          strokeLinejoin="round"
         />
       </svg>
-      <div className="flex items-center gap-2.5">
-        <span className="text-2xl font-extrabold tracking-tight border-r border-current pr-2.5">FAP</span>
-        <span className="text-[10px] font-bold uppercase tracking-wider leading-tight">
-          Fundación<br />Amazonía Productiva
-        </span>
+      <div className="flex flex-col leading-[1.08] tracking-wide uppercase font-light text-[11px] sm:text-xs">
+        <span>Fundación</span>
+        <span>Amazonía</span>
+        <span>Productiva</span>
       </div>
     </a>
   );
@@ -469,16 +486,16 @@ export default function Page() {
       </section>
 
       {/* ============================================================== */}
-      {/* 2. QUIÉNES SOMOS (COLLAGE MITAD IZQUIERDA ROTATIVO Y 4 VIÑETAS) */}
+      {/* 2. QUIÉNES SOMOS (COLLAGE MITAD IZQUIERDA GRANDE Y ROTATIVO + 4 VIÑETAS) */}
       {/* ============================================================== */}
       <section id="nosotros" className="py-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
           
-          {/* Mitad Izquierda: Ocupa toda la mitad izquierda de pantalla (pegada al borde) y rota automáticamente */}
-          <div className="lg:col-span-6 w-full pr-0 lg:pr-8">
+          {/* Lado Izquierdo: Más grande y ancho (7 cols), pegado al borde izquierdo, cuadradito superior pegado al rectángulo inferior */}
+          <div className="lg:col-span-7 w-full pr-0 lg:pr-4">
             <div className="grid grid-cols-3 gap-1.5">
               
-              {/* Fila 1: Imagen grande horizontal (2 cols) + Cuadrado (1 col) */}
+              {/* Fila 1 con items-end para que el cuadradito baje y quede pegado al rectángulo de abajo */}
               <div className="col-span-2 aspect-[16/10] rounded-none overflow-hidden shadow-md bg-neutral-200">
                 <img
                   key={`col-0-${collageTick}`}
@@ -487,7 +504,7 @@ export default function Page() {
                   className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
                 />
               </div>
-              <div className="col-span-1 aspect-square rounded-none overflow-hidden shadow-md bg-neutral-200">
+              <div className="col-span-1 self-end aspect-square w-full rounded-none overflow-hidden shadow-md bg-neutral-200">
                 <img
                   key={`col-1-${collageTick}`}
                   src={getImageSrc(galleryPool[(1 + collageTick) % galleryPool.length].img)}
@@ -496,7 +513,7 @@ export default function Page() {
                 />
               </div>
 
-              {/* Fila 2: Cuadrado (1 col) + Imagen grande horizontal (2 cols) */}
+              {/* Fila 2: Cuadrado (1 col) + Rectángulo horizontal (2 cols) pegados justo debajo */}
               <div className="col-span-1 aspect-square rounded-none overflow-hidden shadow-md bg-neutral-200">
                 <img
                   key={`col-2-${collageTick}`}
@@ -517,8 +534,8 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Lado Derecho: Las 4 viñetas visibles a la vez, icono a la izquierda */}
-          <div className="lg:col-span-6 px-6 sm:px-10 lg:px-14 pt-12 lg:pt-0 max-w-2xl space-y-8">
+          {/* Lado Derecho: 5 cols con el texto y las 4 viñetas */}
+          <div className="lg:col-span-5 px-6 sm:px-10 lg:px-12 pt-12 lg:pt-0 space-y-8">
             <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
               <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
               Conoce a FAP
@@ -772,7 +789,8 @@ export default function Page() {
       {/* 5. EXPERIENCIAS: GALERÍA FULL-WIDTH ROTATIVA CON MARGEN LIGERO */}
       {/* ============================================================== */}
       <section id="galeria" className="py-24 w-full">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 mb-12">
+        {/* Título pegado al lado izquierdo de la galería */}
+        <div className="w-full px-6 sm:px-10 lg:px-12 mb-10">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
               <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
@@ -787,7 +805,7 @@ export default function Page() {
           </div>
         </div>
 
-        {/* MOSAICO FULL-WIDTH (Todo el ancho completo, margen mínimo gap-1, esquinas cuadradas y rotación) */}
+        {/* MOSAICO FULL-WIDTH (Todo el ancho completo, margen mínimo gap-1, rectángulos y cuadrados sin repetición) */}
         <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-1">
           
           {/* Bloque principal 2x2 */}
@@ -800,43 +818,54 @@ export default function Page() {
             />
           </div>
 
-          {/* Fila superior derecha: 4 cuadrados */}
-          {[1, 2, 3, 4].map((offset, idx) => {
-            const item = galleryPool[(offset + galleryTick) % galleryPool.length];
-            return (
-              <div key={`top-${idx}`} className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
-                <img
-                  key={`gal-t-${idx}-${galleryTick}`}
-                  src={getImageSrc(item.img)}
-                  alt={item.alt}
-                  className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-            );
-          })}
-
-          {/* Fila inferior derecha: 1 horizontal exacta 2:1 (encaja al píxel con las 2 filas) + 2 cuadrados */}
-          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
+          {/* Fila superior derecha: 2 cuadrados + 1 rectángulo horizontal (2:1) */}
+          <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <img
-              key={`gal-wide-${galleryTick}`}
+              key={`gal-t1-${galleryTick}`}
+              src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(1 + galleryTick) % galleryPool.length].alt}
+              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
+            <img
+              key={`gal-t2-${galleryTick}`}
               src={getImageSrc(galleryPool[(2 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(2 + galleryTick) % galleryPool.length].alt}
+              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
+            <img
+              key={`gal-t-rect-${galleryTick}`}
+              src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
+              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+
+          {/* Fila inferior derecha: 1 rectángulo horizontal (2:1) + 2 cuadrados */}
+          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
+            <img
+              key={`gal-b-rect-${galleryTick}`}
+              src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
               className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <img
               key={`gal-b1-${galleryTick}`}
-              src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
-              alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
+              src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(1 + galleryTick) % galleryPool.length].alt}
               className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-[#ece8dd]">
             <img
               key={`gal-b2-${galleryTick}`}
-              src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
-              alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
+              src={getImageSrc(galleryPool[(0 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(0 + galleryTick) % galleryPool.length].alt}
               className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
             />
           </div>
