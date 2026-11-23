@@ -330,31 +330,13 @@ export default function Page() {
   const currentProject = projectsList.find(p => p.id === activeProjectId) || projectsList[0];
 
   return (
-    <main id="inicio" className="relative min-h-screen bg-[#F7F2E6] text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black">
-
-      {/* FILTROS DIFUMINADOS LIGEROS DE VERDE HOJA Y VERDE BOSQUE SOBRE EL MARFIL */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
-        {/* Conoce a FAP: Verde hoja ligero */}
-        <div
-          className="absolute top-[16%] -left-24 w-[780px] h-[780px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(117, 179, 70, 0.22) 0%, rgba(183, 216, 75, 0.10) 40%, transparent 72%)" }}
-        />
-        {/* Cifras / Mapa: Verde bosque ligero a la derecha */}
-        <div
-          className="absolute top-[34%] -right-24 w-[860px] h-[860px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(46, 107, 63, 0.16) 0%, rgba(117, 179, 70, 0.08) 45%, transparent 72%)" }}
-        />
-        {/* Galería: Verde hoja + Arena suave */}
-        <div
-          className="absolute top-[58%] -left-20 w-[820px] h-[820px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(117, 179, 70, 0.20) 0%, rgba(230, 211, 184, 0.25) 45%, transparent 72%)" }}
-        />
-        {/* Alianzas y Equipo: Verde bosque ligero */}
-        <div
-          className="absolute top-[78%] right-0 w-[780px] h-[780px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(46, 107, 63, 0.15) 0%, rgba(183, 216, 75, 0.08) 45%, transparent 72%)" }}
-        />
-      </div>
+    <main
+      id="inicio"
+      className="relative min-h-screen text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black"
+      style={{
+        background: "linear-gradient(180deg, #F7F2E6 0%, #EDF2E2 25%, #F4EFE2 50%, #EAF1DF 75%, #F7F2E6 100%)"
+      }}
+    >
       
       {/* ============================================================== */}
       {/* HEADER / NAVBAR */}
