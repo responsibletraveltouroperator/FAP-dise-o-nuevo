@@ -233,7 +233,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
       </div>
 
       {/* Leyenda sutil de regiones naturales de Ecuador */}
-      <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-xs font-semibold text-neutral-600">
+      <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-xs font-semibold text-[#F7F2E6]/85">
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 bg-[#75B346]" />
           <span>Costa &amp; Bosques</span>
