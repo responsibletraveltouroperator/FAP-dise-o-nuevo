@@ -897,9 +897,9 @@ export default function Page() {
       </section>
 
       {/* ============================================================== */}
-      {/* 7. NUESTRO EQUIPO (DISEÑO EDITORIAL LIMPIO) */}
+      {/* 7. NUESTRO EQUIPO (DISEÑO EDITORIAL AMPLIO Y LARGO) */}
       {/* ============================================================== */}
-      <section id="equipo" className="py-24 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto">
+      <section id="equipo" className="py-24 px-6 sm:px-10 lg:px-14 w-full max-w-[1680px] mx-auto">
         <div className="max-w-2xl mb-14">
           <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
             <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
@@ -910,8 +910,8 @@ export default function Page() {
           </h2>
         </div>
 
-        {/* Personas del equipo: Estilo retrato editorial sin cápsulas; nombre abajo y descripción corta en hover */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+        {/* Personas del equipo: Más largas y anchas ocupando más ancho de página */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 lg:gap-6">
           {[
             {
               name: "Dra. Elena Santillán",
@@ -940,7 +940,7 @@ export default function Page() {
           ].map((member) => (
             <div
               key={member.name}
-              className="group relative aspect-[4/5] overflow-hidden bg-neutral-900 rounded-none shadow-md cursor-default"
+              className="group relative aspect-[3/4.3] overflow-hidden bg-neutral-900 rounded-none shadow-md cursor-default"
             >
               <img
                 src={getImageSrc(member.img)}
@@ -971,20 +971,20 @@ export default function Page() {
       </section>
 
       {/* ============================================================== */}
-      {/* 7. FOOTER CON RELIEVE DE MONTAÑA REAL (fap-mountain-footer.png) */}
+      {/* 7. FOOTER CON RELIEVE DE MONTAÑA REAL ESCALADO AL ANCHO COMPLETO */}
       {/* ============================================================== */}
-      <footer id="contacto" className="relative bg-[#142b1f] text-white pt-0 pb-12 mt-20">
+      <footer id="contacto" className="relative bg-[#142b1f] text-white pt-12 pb-12 mt-44 sm:mt-56">
         
-        {/* Silueta de montaña real que se combina y continúa con el fondo del footer */}
-        <div className="relative w-full -translate-y-[85%] pointer-events-none z-10">
+        {/* Silueta de montaña real apoyada exactamente sobre el borde del footer y escalada al ancho completo */}
+        <div className="absolute bottom-full left-0 right-0 w-full overflow-hidden pointer-events-none z-10">
           <img
             src={getImageSrc(mountainFooterImage)}
             alt=""
-            className="w-full object-cover max-h-48 sm:max-h-64 object-top select-none"
+            className="w-[140%] -ml-[20%] sm:w-[128%] sm:-ml-[14%] max-w-none h-auto object-bottom select-none block translate-y-[2px]"
           />
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 -mt-20 sm:-mt-24 relative z-20">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 relative z-20">
           
           {/* Fila Principal: Newsletter integrado directamente (sin contenedor separado) y Contacto */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-14 border-b border-white/10">
