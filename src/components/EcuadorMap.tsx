@@ -37,11 +37,14 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
   const galapagosProject = projects.find(p => p.id === "galapagos");
   const continentProjects = projects.filter(p => p.id !== "galapagos");
 
+  const continentImgUrl = getImgSrc(ecuadorReliefImg);
+  const galapagosImgUrl = getImgSrc(galapagosReliefImg);
+
   return (
     <div className="relative w-full max-w-[900px] mx-auto select-none">
       
-      {/* MAPA PRINCIPAL: ECUADOR CONTINENTAL (Topografía física real recortada exactamente al territorio) */}
-      <div className="relative w-full aspect-[1.04/1] drop-shadow-[0_24px_42px_rgba(20,43,31,0.22)]">
+      {/* MAPA PRINCIPAL: ECUADOR CONTINENTAL (Relieve satelital real proyectado directamente sobre las provincias) */}
+      <div className="relative w-full aspect-[1.04/1] drop-shadow-[0_24px_42px_rgba(20,43,31,0.24)]">
         <ComposableMap
           width={800}
           height={760}
@@ -53,38 +56,28 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           className="w-full h-full"
         >
           <defs>
-            {/* Máscara exacta de la silueta de Ecuador continental (mask sí soporta <g> de react-simple-maps) */}
-            <mask id="ecuador-continent-mask">
-              <rect x="0" y="0" width="800" height="760" fill="#000000" />
-              <Geographies geography={continentGeography}>
-                {({ geographies }) =>
-                  geographies.map((geo) => (
-                    <Geography
-                      key={`${geo.rsmKey}-mask`}
-                      geography={geo}
-                      fill="#ffffff"
-                      stroke="#ffffff"
-                      strokeWidth={0.5}
-                      style={{ fill: "#ffffff", outline: "none" }}
-                    />
-                  ))
-                }
-              </Geographies>
-            </mask>
+            {/* Patrón de imagen topográfica real de Ecuador calibrado 1:1 con el viewBox */}
+            <pattern
+              id="ecuador-topo-pattern"
+              patternUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="800"
+              height="760"
+            >
+              <image
+                href={continentImgUrl}
+                x="0"
+                y="0"
+                width="800"
+                height="760"
+                preserveAspectRatio="none"
+                style={{ filter: "brightness(1.12) contrast(1.08) saturate(1.22)" }}
+              />
+            </pattern>
           </defs>
 
-          {/* Imagen satelital/física de relieve topográfico real recortada a la silueta de Ecuador */}
-          <image
-            href={getImgSrc(ecuadorReliefImg)}
-            x="0"
-            y="0"
-            width="800"
-            height="760"
-            preserveAspectRatio="none"
-            mask="url(#ecuador-continent-mask)"
-          />
-
-          {/* Capa interactiva de divisiones provinciales sutiles */}
+          {/* Provincias pintadas directamente con el patrón del relieve real de Ecuador */}
           <Geographies geography={continentGeography}>
             {({ geographies }) =>
               geographies.map((geo) => {
@@ -95,13 +88,13 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={isHovered ? "rgba(158, 203, 54, 0.35)" : "transparent"}
-                    stroke={isHovered ? "rgba(255, 255, 255, 0.85)" : "rgba(20, 43, 31, 0.22)"}
-                    strokeWidth={isHovered ? 1.1 : 0.45}
+                    fill={isHovered ? "#9ecb36" : "url(#ecuador-topo-pattern)"}
+                    stroke={isHovered ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.25)"}
+                    strokeWidth={isHovered ? 1.2 : 0.55}
                     onMouseEnter={() => setHoveredProvince(name)}
                     onMouseLeave={() => setHoveredProvince(null)}
                     style={{
-                      fill: isHovered ? "rgba(158, 203, 54, 0.35)" : "transparent",
+                      fill: isHovered ? "#9ecb36" : "url(#ecuador-topo-pattern)",
                       outline: "none",
                       transition: "fill 180ms ease"
                     }}
@@ -123,16 +116,16 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
               >
                 <circle
                   r={isSelected ? 18 : 10}
-                  fill={isSelected ? "#9ecb36" : "#225333"}
-                  opacity={isSelected ? 0.75 : 0.3}
-                  className={isSelected ? "animate-pulse-pin" : "group-hover:opacity-65 transition-opacity"}
+                  fill={isSelected ? "#9ecb36" : "#ffffff"}
+                  opacity={isSelected ? 0.75 : 0.4}
+                  className={isSelected ? "animate-pulse-pin" : "group-hover:opacity-75 transition-opacity"}
                 />
 
                 <circle
                   r={isSelected ? 7.5 : 5.5}
                   fill={isSelected ? "#0c0e0b" : "#142b1f"}
                   stroke={isSelected ? "#9ecb36" : "#ffffff"}
-                  strokeWidth={isSelected ? 2 : 1.2}
+                  strokeWidth={isSelected ? 2 : 1.5}
                   className="transition-transform duration-300 group-hover:scale-125"
                 />
 
@@ -161,8 +154,8 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           })}
         </ComposableMap>
 
-        {/* ISLAS GALÁPAGOS CON TOPOGRAFÍA REAL RECORTADA (Sin caja cuadrada) */}
-        <div className="absolute top-[3%] left-[2%] w-[18%] sm:w-[19%] aspect-square pointer-events-auto drop-shadow-[0_10px_18px_rgba(20,43,31,0.18)]">
+        {/* ISLAS GALÁPAGOS CON RELIEVE REAL (Patrón directo sobre cada isla, sin caja cuadrada) */}
+        <div className="absolute top-[3%] left-[2%] w-[18%] sm:w-[19%] aspect-square pointer-events-auto drop-shadow-[0_10px_18px_rgba(20,43,31,0.2)]">
           <ComposableMap
             width={300}
             height={300}
@@ -174,34 +167,25 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
             className="w-full h-full"
           >
             <defs>
-              <mask id="galapagos-mask">
-                <rect x="0" y="0" width="300" height="300" fill="#000000" />
-                <Geographies geography={galapagosGeography}>
-                  {({ geographies }) =>
-                    geographies.map((geo) => (
-                      <Geography
-                        key={`${geo.rsmKey}-mask`}
-                        geography={geo}
-                        fill="#ffffff"
-                        stroke="#ffffff"
-                        strokeWidth={0.5}
-                        style={{ fill: "#ffffff", outline: "none" }}
-                      />
-                    ))
-                  }
-                </Geographies>
-              </mask>
+              <pattern
+                id="galapagos-topo-pattern"
+                patternUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="300"
+                height="300"
+              >
+                <image
+                  href={galapagosImgUrl}
+                  x="0"
+                  y="0"
+                  width="300"
+                  height="300"
+                  preserveAspectRatio="none"
+                  style={{ filter: "brightness(1.18) contrast(1.1) saturate(1.25)" }}
+                />
+              </pattern>
             </defs>
-
-            <image
-              href={getImgSrc(galapagosReliefImg)}
-              x="0"
-              y="0"
-              width="300"
-              height="300"
-              preserveAspectRatio="none"
-              mask="url(#galapagos-mask)"
-            />
 
             <Geographies geography={galapagosGeography}>
               {({ geographies }) =>
@@ -209,13 +193,13 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={hoveredProvince === "Galápagos" ? "rgba(158, 203, 54, 0.35)" : "transparent"}
-                    stroke="rgba(20, 43, 31, 0.25)"
-                    strokeWidth={0.45}
+                    fill={hoveredProvince === "Galápagos" ? "#9ecb36" : "url(#galapagos-topo-pattern)"}
+                    stroke="rgba(255, 255, 255, 0.4)"
+                    strokeWidth={0.5}
                     onMouseEnter={() => setHoveredProvince("Galápagos")}
                     onMouseLeave={() => setHoveredProvince(null)}
                     style={{
-                      fill: hoveredProvince === "Galápagos" ? "rgba(158, 203, 54, 0.35)" : "transparent",
+                      fill: hoveredProvince === "Galápagos" ? "#9ecb36" : "url(#galapagos-topo-pattern)",
                       outline: "none",
                       cursor: "pointer",
                       transition: "fill 180ms ease"
@@ -234,15 +218,15 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
               >
                 <circle
                   r={activeProjectId === "galapagos" ? 16 : 9}
-                  fill={activeProjectId === "galapagos" ? "#9ecb36" : "#225333"}
-                  opacity={activeProjectId === "galapagos" ? 0.75 : 0.35}
-                  className={activeProjectId === "galapagos" ? "animate-pulse-pin" : "group-hover:opacity-65"}
+                  fill={activeProjectId === "galapagos" ? "#9ecb36" : "#ffffff"}
+                  opacity={activeProjectId === "galapagos" ? 0.75 : 0.4}
+                  className={activeProjectId === "galapagos" ? "animate-pulse-pin" : "group-hover:opacity-75"}
                 />
                 <circle
                   r={activeProjectId === "galapagos" ? 6.5 : 5}
                   fill={activeProjectId === "galapagos" ? "#0c0e0b" : "#142b1f"}
                   stroke={activeProjectId === "galapagos" ? "#9ecb36" : "#ffffff"}
-                  strokeWidth={activeProjectId === "galapagos" ? 2 : 1}
+                  strokeWidth={activeProjectId === "galapagos" ? 2 : 1.5}
                 />
                 <circle
                   r={activeProjectId === "galapagos" ? 2.5 : 2}
@@ -263,15 +247,15 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
       {/* Leyenda sutil de regiones naturales de Ecuador */}
       <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-xs font-semibold text-neutral-600">
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-[#79a865]" />
-          <span>Costa &amp; Llanuras</span>
+          <span className="w-3 h-3 bg-[#4d753b]" />
+          <span>Costa &amp; Bosques</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-[#c98b55]" />
+          <span className="w-3 h-3 bg-[#8c6b43]" />
           <span>Cordillera de los Andes</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-[#8fb86d]" />
+          <span className="w-3 h-3 bg-[#244d28]" />
           <span>Amazonía</span>
         </div>
       </div>
