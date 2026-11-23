@@ -476,7 +476,7 @@ export default function Page() {
           
           {/* Mitad Izquierda: Ocupa toda la mitad izquierda de pantalla (pegada al borde) y rota automáticamente */}
           <div className="lg:col-span-6 w-full pr-0 lg:pr-8">
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+            <div className="grid grid-cols-3 gap-1.5">
               
               {/* Fila 1: Imagen grande horizontal (2 cols) + Cuadrado (1 col) */}
               <div className="col-span-2 aspect-[16/10] rounded-none overflow-hidden shadow-md bg-neutral-200">
@@ -787,8 +787,8 @@ export default function Page() {
           </div>
         </div>
 
-        {/* MOSAICO FULL-WIDTH (Todo el ancho completo, ligero margen gap-2, esquinas cuadradas y rotación) */}
-        <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-2">
+        {/* MOSAICO FULL-WIDTH (Todo el ancho completo, margen mínimo gap-1, esquinas cuadradas y rotación) */}
+        <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-1">
           
           {/* Bloque principal 2x2 */}
           <div className="col-span-2 row-span-2 aspect-square rounded-none overflow-hidden bg-neutral-200">
@@ -815,8 +815,8 @@ export default function Page() {
             );
           })}
 
-          {/* Fila inferior derecha: 1 horizontal panorámica (2 cols) + 2 cuadrados (1 col c/u) */}
-          <div className="col-span-2 aspect-[2/1] md:aspect-auto rounded-none overflow-hidden bg-neutral-200">
+          {/* Fila inferior derecha: 1 horizontal exacta 2:1 (encaja al píxel con las 2 filas) + 2 cuadrados */}
+          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
             <img
               key={`gal-wide-${galleryTick}`}
               src={getImageSrc(galleryPool[(2 + galleryTick) % galleryPool.length].img)}
