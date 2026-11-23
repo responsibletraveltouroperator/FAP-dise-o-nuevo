@@ -322,10 +322,20 @@ const aboutItemsList = [
 
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<"proyectos" | "experiencias" | "empresas" | null>(null);
   const [activeProjectId, setActiveProjectId] = useState<string>("napo");
   const [mapSelectedProjectId, setMapSelectedProjectId] = useState<string | null>(null);
   const [activeExpandedId, setActiveExpandedId] = useState<number | null>(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const currentProject = projectsList.find(p => p.id === activeProjectId) || projectsList[0];
 
@@ -339,9 +349,15 @@ export default function Page() {
     >
       
       {/* ============================================================== */}
-      {/* HEADER / NAVBAR */}
+      {/* HEADER / NAVBAR (SIEMPRE ACOMPAÑA Y SE VUELVE VERDE BOSQUE AL BAJAR) */}
       {/* ============================================================== */}
-      <header className="absolute top-0 inset-x-0 z-30 flex items-center justify-between px-6 sm:px-12 lg:px-16 py-6 text-white">
+      <header
+        className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 sm:px-12 lg:px-16 text-white transition-all duration-300 ${
+          isScrolled
+            ? "bg-[#142b1f]/95 backdrop-blur-md shadow-lg py-4 border-b border-white/10"
+            : "bg-transparent py-6"
+        }`}
+      >
         <Logo light />
         
         <nav className={`fixed inset-0 bg-[#0c0e0b]/95 backdrop-blur-xl flex flex-col justify-center items-center gap-6 text-lg font-medium transition-all duration-300 md:static md:inset-auto md:bg-transparent md:backdrop-blur-none md:flex-row md:gap-8 md:text-sm lg:gap-10 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto"}`}>
@@ -490,8 +506,11 @@ export default function Page() {
             </div>
 
             {/* Título afirmativo */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] leading-tight">
-              El territorio florece cuando <span className="text-[#75B346]">caminamos juntos.</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+              <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
+                El territorio florece cuando
+              </span>{" "}
+              <span className="text-[#E3A72F]">caminamos juntos.</span>
             </h2>
 
             {/* LISTA DIRECTA CON LAS 4 VIÑETAS (Todas visibles al mismo tiempo, icono a la izquierda) */}
@@ -628,8 +647,11 @@ export default function Page() {
                     {categoryLabels[selectedCategory]}
                   </h2>
                 ) : (
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] tracking-tight leading-tight">
-                    Lugares donde <span className="text-[#75B346]">ayudamos</span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                    <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
+                      Lugares donde
+                    </span>{" "}
+                    <span className="text-[#75B346]">ayudamos</span>
                   </h2>
                 )}
               </div>
@@ -742,8 +764,11 @@ export default function Page() {
             <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
             Experiencias en Campo
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
-            Galería de <span className="text-[#75B346]">vivencias y territorio.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
+            <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
+              Galería de
+            </span>{" "}
+            <span className="text-[#E3A72F]">vivencias y territorio.</span>
           </h2>
           <p className="text-neutral-600 mt-2 text-base">
             Momentos reales de voluntariado, siembra, rescate de saberes y trabajo comunitario en la Amazonía ecuatoriana.
@@ -830,8 +855,11 @@ export default function Page() {
             <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
             Equipo de Trabajo
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
-            Quienes caminan <span className="text-[#75B346]">junto al territorio.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
+            <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
+              Quienes caminan
+            </span>{" "}
+            <span className="text-[#75B346]">junto al territorio.</span>
           </h2>
         </div>
 
