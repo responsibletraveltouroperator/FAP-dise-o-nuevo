@@ -103,7 +103,18 @@ export default function RaicesProductivasPage() {
   const activeZone = plantedZones.find(z => z.id === activeZoneId) || plantedZones[0];
 
   return (
-    <main className="min-h-screen bg-[#F7F2E6] text-[#10120f] selection:bg-[#B7D84B] selection:text-black">
+    <main className="relative min-h-screen bg-[#F7F2E6] text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black">
+      {/* Filtros difuminados ligeros de Verde Hoja y Verde Bosque sobre el Marfil */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+        <div
+          className="absolute top-[42%] -right-24 w-[780px] h-[780px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(117, 179, 70, 0.20) 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute top-[74%] -left-24 w-[820px] h-[820px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(46, 107, 63, 0.15) 0%, transparent 70%)" }}
+        />
+      </div>
       
       {/* ============================================================== */}
       {/* BARRA SUPERIOR DE NAVEGACIÓN (SIN BORDES REDONDOS) */}
