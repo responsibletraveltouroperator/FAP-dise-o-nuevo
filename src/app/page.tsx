@@ -327,6 +327,16 @@ export default function Page() {
   const [activeProjectId, setActiveProjectId] = useState<string>("napo");
   const [mapSelectedProjectId, setMapSelectedProjectId] = useState<string | null>(null);
   const [activeExpandedId, setActiveExpandedId] = useState<number | null>(0);
+  const [collageTick, setCollageTick] = useState(0);
+  const [galleryTick, setGalleryTick] = useState(0);
+
+  const galleryPool = [
+    { img: heroImage, alt: "Voluntariado en comunidad" },
+    { img: communityImage, alt: "Preparación comunitaria" },
+    { img: storyImage, alt: "Jornada ambiental en el bosque" },
+    { img: seedlingPhotoImage, alt: "Cultivo sostenible en campo" },
+    { img: seedlingImage, alt: "Siembra y crecimiento" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -335,6 +345,19 @@ export default function Page() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const collageTimer = setInterval(() => {
+      setCollageTick((prev) => (prev + 1) % 5);
+    }, 4200);
+    const galleryTimer = setInterval(() => {
+      setGalleryTick((prev) => (prev + 1) % 5);
+    }, 3800);
+    return () => {
+      clearInterval(collageTimer);
+      clearInterval(galleryTimer);
+    };
   }, []);
 
   const currentProject = projectsList.find(p => p.id === activeProjectId) || projectsList[0];
@@ -446,71 +469,64 @@ export default function Page() {
       </section>
 
       {/* ============================================================== */}
-      {/* 2. QUIÉNES SOMOS (COLLAGE SEPARADO Y VIÑETAS EN CARRUSEL DE 2) */}
+      {/* 2. QUIÉNES SOMOS (COLLAGE MITAD IZQUIERDA ROTATIVO Y 4 VIÑETAS) */}
       {/* ============================================================== */}
-      <section id="nosotros" className="py-24 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <section id="nosotros" className="py-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
           
-          {/* Lado Izquierdo: Collage Separado (Esquinas cuadradas rounded-none y formatos más cuadrados) */}
-          <div className="lg:col-span-6 w-full">
-            <div className="grid grid-cols-2 gap-5 sm:gap-6 items-start">
+          {/* Mitad Izquierda: Ocupa toda la mitad izquierda de pantalla (pegada al borde) y rota automáticamente */}
+          <div className="lg:col-span-6 w-full pr-0 lg:pr-8">
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
               
-              {/* Columna Izquierda */}
-              <div className="space-y-5 sm:space-y-6">
-                {/* Cuadrado Arriba */}
-                <div className="aspect-square w-full rounded-none overflow-hidden shadow-md bg-neutral-200 hover:scale-[1.02] transition-transform duration-500">
-                  <img
-                    src={getImageSrc(communityImage)}
-                    alt="Trabajo comunitario"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                {/* Casi Cuadrado Abajo */}
-                <div className="aspect-[1/1.08] w-full rounded-none overflow-hidden shadow-md bg-neutral-200 hover:scale-[1.02] transition-transform duration-500">
-                  <img
-                    src={getImageSrc(storyImage)}
-                    alt="Liderazgo en territorio"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              {/* Fila 1: Imagen grande horizontal (2 cols) + Cuadrado (1 col) */}
+              <div className="col-span-2 aspect-[16/10] rounded-none overflow-hidden shadow-md bg-neutral-200">
+                <img
+                  key={`col-0-${collageTick}`}
+                  src={getImageSrc(galleryPool[(0 + collageTick) % galleryPool.length].img)}
+                  alt={galleryPool[(0 + collageTick) % galleryPool.length].alt}
+                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                />
+              </div>
+              <div className="col-span-1 aspect-square rounded-none overflow-hidden shadow-md bg-neutral-200">
+                <img
+                  key={`col-1-${collageTick}`}
+                  src={getImageSrc(galleryPool[(1 + collageTick) % galleryPool.length].img)}
+                  alt={galleryPool[(1 + collageTick) % galleryPool.length].alt}
+                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                />
               </div>
 
-              {/* Columna Derecha (Desfasada suavemente hacia abajo para ritmo asimétrico) */}
-              <div className="space-y-5 sm:space-y-6 pt-6 sm:pt-8">
-                {/* Casi Cuadrado Principal */}
-                <div className="aspect-[1/1.12] w-full rounded-none overflow-hidden shadow-xl bg-neutral-200 hover:scale-[1.02] transition-transform duration-500">
-                  <img
-                    src={getImageSrc(heroImage)}
-                    alt="Equipo en campo con pala"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                {/* Cuadrado Abajo */}
-                <div className="aspect-square w-full rounded-none overflow-hidden shadow-md bg-neutral-200 hover:scale-[1.02] transition-transform duration-500">
-                  <img
-                    src={getImageSrc(seedlingImage)}
-                    alt="Siembra y biodiversidad"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              {/* Fila 2: Cuadrado (1 col) + Imagen grande horizontal (2 cols) */}
+              <div className="col-span-1 aspect-square rounded-none overflow-hidden shadow-md bg-neutral-200">
+                <img
+                  key={`col-2-${collageTick}`}
+                  src={getImageSrc(galleryPool[(2 + collageTick) % galleryPool.length].img)}
+                  alt={galleryPool[(2 + collageTick) % galleryPool.length].alt}
+                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                />
+              </div>
+              <div className="col-span-2 aspect-[16/10] rounded-none overflow-hidden shadow-md bg-neutral-200">
+                <img
+                  key={`col-3-${collageTick}`}
+                  src={getImageSrc(galleryPool[(3 + collageTick) % galleryPool.length].img)}
+                  alt={galleryPool[(3 + collageTick) % galleryPool.length].alt}
+                  className="w-full h-full object-cover animate-fadeIn hover:scale-[1.03] transition-transform duration-700"
+                />
               </div>
 
             </div>
           </div>
 
-          {/* Lado Derecho: Las 4 viñetas visibles a la vez, icono a la izquierda, sin carrusel */}
-          <div className="lg:col-span-6 space-y-8">
+          {/* Lado Derecho: Las 4 viñetas visibles a la vez, icono a la izquierda */}
+          <div className="lg:col-span-6 px-6 sm:px-10 lg:px-14 pt-12 lg:pt-0 max-w-2xl space-y-8">
             <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
               <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
               Conoce a FAP
             </div>
 
-            {/* Título afirmativo */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
-              <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
-                El territorio florece cuando
-              </span>{" "}
-              <span className="text-[#E3A72F]">caminamos juntos.</span>
+            {/* Título afirmativo en verde oscuro/negro + Mostaza */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] leading-tight">
+              El territorio florece cuando <span className="text-[#E3A72F]">caminamos juntos.</span>
             </h2>
 
             {/* LISTA DIRECTA CON LAS 4 VIÑETAS (Todas visibles al mismo tiempo, icono a la izquierda) */}
@@ -647,11 +663,8 @@ export default function Page() {
                     {categoryLabels[selectedCategory]}
                   </h2>
                 ) : (
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-                    <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
-                      Lugares donde
-                    </span>{" "}
-                    <span className="text-[#75B346]">ayudamos</span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] tracking-tight leading-tight">
+                    Lugares donde <span className="text-[#75B346]">ayudamos</span>
                   </h2>
                 )}
               </div>
@@ -756,66 +769,75 @@ export default function Page() {
       </section>
 
       {/* ============================================================== */}
-      {/* 5. EXPERIENCIAS: GALERÍA / MOSAICO SOLO DE FOTOS */}
+      {/* 5. EXPERIENCIAS: GALERÍA FULL-WIDTH ROTATIVA CON MARGEN LIGERO */}
       {/* ============================================================== */}
-      <section id="galeria" className="py-24 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto">
-        <div className="max-w-2xl mb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
-            Experiencias en Campo
+      <section id="galeria" className="py-24 w-full">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 mb-12">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
+              Experiencias en Campo
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
+              Galería de <span className="text-[#E3A72F]">vivencias y territorio.</span>
+            </h2>
+            <p className="text-neutral-600 mt-2 text-base">
+              Momentos reales de voluntariado, siembra, rescate de saberes y trabajo comunitario en la Amazonía ecuatoriana.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
-            <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
-              Galería de
-            </span>{" "}
-            <span className="text-[#E3A72F]">vivencias y territorio.</span>
-          </h2>
-          <p className="text-neutral-600 mt-2 text-base">
-            Momentos reales de voluntariado, siembra, rescate de saberes y trabajo comunitario en la Amazonía ecuatoriana.
-          </p>
         </div>
 
-        {/* MOSAICO FOTOGRÁFICO LIMPIO (ESQUINAS CUADRADAS Y ORGANIZACIÓN SIMÉTRICA) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+        {/* MOSAICO FULL-WIDTH (Todo el ancho completo, ligero margen gap-2, esquinas cuadradas y rotación) */}
+        <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-2">
           
-          {/* Foto principal: Cuadrada grande 2x2 */}
-          <div className="col-span-2 row-span-2 rounded-none overflow-hidden shadow-md aspect-square bg-neutral-200">
+          {/* Bloque principal 2x2 */}
+          <div className="col-span-2 row-span-2 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <img
-              src={getImageSrc(heroImage)}
-              alt="Voluntariado en comunidad"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              key={`gal-0-${galleryTick}`}
+              src={getImageSrc(galleryPool[(0 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(0 + galleryTick) % galleryPool.length].alt}
+              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
             />
           </div>
 
-          <div className="rounded-none overflow-hidden shadow-sm aspect-square bg-neutral-200">
+          {/* Fila superior derecha: 4 cuadrados */}
+          {[1, 2, 3, 4].map((offset, idx) => {
+            const item = galleryPool[(offset + galleryTick) % galleryPool.length];
+            return (
+              <div key={`top-${idx}`} className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
+                <img
+                  key={`gal-t-${idx}-${galleryTick}`}
+                  src={getImageSrc(item.img)}
+                  alt={item.alt}
+                  className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            );
+          })}
+
+          {/* Fila inferior derecha: 1 horizontal panorámica (2 cols) + 2 cuadrados (1 col c/u) */}
+          <div className="col-span-2 aspect-[2/1] md:aspect-auto rounded-none overflow-hidden bg-neutral-200">
             <img
-              src={getImageSrc(communityImage)}
-              alt="Preparación comunitaria"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              key={`gal-wide-${galleryTick}`}
+              src={getImageSrc(galleryPool[(2 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(2 + galleryTick) % galleryPool.length].alt}
+              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
             />
           </div>
-
-          <div className="rounded-none overflow-hidden shadow-sm aspect-square bg-neutral-200">
+          <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <img
-              src={getImageSrc(storyImage)}
-              alt="Jornada ambiental en el bosque"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              key={`gal-b1-${galleryTick}`}
+              src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
+              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
             />
           </div>
-
-          <div className="rounded-none overflow-hidden shadow-sm aspect-square bg-neutral-200">
+          <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-[#ece8dd]">
             <img
-              src={getImageSrc(seedlingPhotoImage)}
-              alt="Cultivo sostenible en campo"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-
-          <div className="rounded-none overflow-hidden shadow-sm aspect-square bg-[#ece8dd]">
-            <img
-              src={getImageSrc(seedlingImage)}
-              alt="Semilla y crecimiento"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              key={`gal-b2-${galleryTick}`}
+              src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
+              className="w-full h-full object-cover animate-fadeIn hover:scale-105 transition-transform duration-700"
             />
           </div>
 
@@ -855,11 +877,8 @@ export default function Page() {
             <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
             Equipo de Trabajo
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
-            <span className="text-white drop-shadow-[0_2px_10px_rgba(20,43,31,0.32)]">
-              Quienes caminan
-            </span>{" "}
-            <span className="text-[#75B346]">junto al territorio.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
+            Quienes caminan <span className="text-[#75B346]">junto al territorio.</span>
           </h2>
         </div>
 
