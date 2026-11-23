@@ -188,8 +188,8 @@ function Logo({ light = false }: { light?: boolean }) {
         alt="Fundación Amazonía Productiva"
         className={
           light
-            ? "h-[68px] sm:h-[72px] -my-2.5 w-auto object-contain"
-            : "h-11 sm:h-12 w-auto object-contain"
+            ? "h-[96px] sm:h-[106px] -my-4 w-auto object-contain"
+            : "h-16 sm:h-[70px] w-auto object-contain"
         }
       />
     </a>
@@ -393,7 +393,7 @@ export default function Page() {
   return (
     <main
       id="inicio"
-      className="relative min-h-screen bg-[#2E6B3F] text-[#F7F2E6] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black"
+      className="relative min-h-screen bg-[#F7F2E6] text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black"
     >
       
       {/* ============================================================== */}
@@ -538,15 +538,15 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Lado Derecho: 6 cols con el texto y las 4 viñetas sobre Verde Bosque */}
+          {/* Lado Derecho: 6 cols con el texto y las 4 viñetas sobre fondo Marfil */}
           <div className="lg:col-span-6 px-6 sm:px-10 lg:px-12 pt-12 lg:pt-0 space-y-8">
-            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#B7D84B]">
-              <span className="w-2 h-2 rounded-full bg-[#B7D84B]" />
+            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
+              <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
               Conoce a FAP
             </div>
 
-            {/* Título afirmativo en Blanco + Mostaza en la línea inferior */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+            {/* Título afirmativo en verde oscuro/negro + Mostaza en la línea inferior */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] leading-tight">
               El territorio florece cuando<br />
               <span className="text-[#E3A72F]">caminamos juntos.</span>
             </h2>
@@ -559,19 +559,19 @@ export default function Page() {
                   <div
                     key={item.id}
                     onClick={() => setActiveExpandedId(isExpanded ? null : item.id)}
-                    className="border-b border-white/15 pb-5 pt-3 transition-all duration-300 cursor-pointer group hover:border-[#B7D84B]/50"
+                    className="border-b border-black/10 pb-5 pt-3 transition-all duration-300 cursor-pointer group hover:border-[#75B346]/40"
                   >
                     {/* Fila del Ícono y Título: SIEMPRE a la izquierda */}
                     <div className="flex items-center gap-3.5">
-                      <span className="text-[#B7D84B] [&>svg]:text-[#B7D84B]">{item.icon}</span>
-                      <h3 className={`text-xl sm:text-2xl font-bold transition-colors ${isExpanded ? "text-[#B7D84B]" : "text-white group-hover:text-[#B7D84B]"}`}>
+                      {item.icon}
+                      <h3 className={`text-xl sm:text-2xl font-bold transition-colors ${isExpanded ? "text-[#75B346]" : "text-[#142b1f] group-hover:text-[#75B346]"}`}>
                         {item.title}
                       </h3>
                     </div>
 
                     {/* Texto explicativo conciso (máximo 2 líneas, sin flechas ni cajas) */}
                     {isExpanded && (
-                      <p className="text-sm sm:text-base text-[#F7F2E6]/85 leading-relaxed mt-2.5 pl-9 line-clamp-2 animate-fadeIn">
+                      <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mt-2.5 pl-9 line-clamp-2 animate-fadeIn">
                         {item.text}
                       </p>
                     )}
@@ -587,39 +587,39 @@ export default function Page() {
       {/* ============================================================== */}
       {/* 3. CIFRAS DESTACADAS CON CONTADOR ANIMADO (SIN CONTENEDOR / CAJA) */}
       {/* ============================================================== */}
-      <section id="cifras" className="py-16 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto border-t border-b border-white/15">
+      <section id="cifras" className="py-16 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto border-t border-b border-black/10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
           
           <div className="space-y-1">
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight tabular-nums">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2E6B3F] tracking-tight tabular-nums">
               <AnimatedCounter end={150} prefix="+" suffix="K" />
             </span>
-            <p className="text-sm sm:text-base font-bold text-[#F7F2E6]">Árboles Protegidos</p>
-            <p className="text-xs text-[#E6D3B8]/80">Reforestación y conservación activa</p>
+            <p className="text-sm sm:text-base font-bold text-[#10120f]">Árboles Protegidos</p>
+            <p className="text-xs text-neutral-500">Reforestación y conservación activa</p>
           </div>
 
           <div className="space-y-1">
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#B7D84B] tracking-tight tabular-nums">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#75B346] tracking-tight tabular-nums">
               <AnimatedCounter end={42} />
             </span>
-            <p className="text-sm sm:text-base font-bold text-[#F7F2E6]">Comunidades Activas</p>
-            <p className="text-xs text-[#E6D3B8]/80">Acompañadas en territorio</p>
+            <p className="text-sm sm:text-base font-bold text-[#10120f]">Comunidades Activas</p>
+            <p className="text-xs text-neutral-500">Acompañadas en territorio</p>
           </div>
 
           <div className="space-y-1">
             <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#E3A72F] tracking-tight tabular-nums">
               <AnimatedCounter end={1200} prefix="+" useDots />
             </span>
-            <p className="text-sm sm:text-base font-bold text-[#F7F2E6]">Infantes y Familias</p>
-            <p className="text-xs text-[#E6D3B8]/80">Con oportunidades directas</p>
+            <p className="text-sm sm:text-base font-bold text-[#10120f]">Infantes y Familias</p>
+            <p className="text-xs text-neutral-500">Con oportunidades directas</p>
           </div>
 
           <div className="space-y-1">
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#E6D3B8] tracking-tight tabular-nums">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2E6B3F] tracking-tight tabular-nums">
               <AnimatedCounter end={38} />
             </span>
-            <p className="text-sm sm:text-base font-bold text-[#F7F2E6]">Emprendimientos</p>
-            <p className="text-xs text-[#E6D3B8]/80">Sostenibles en marcha</p>
+            <p className="text-sm sm:text-base font-bold text-[#10120f]">Emprendimientos</p>
+            <p className="text-xs text-neutral-500">Sostenibles en marcha</p>
           </div>
 
         </div>
@@ -637,9 +637,9 @@ export default function Page() {
               key={currentProject.id}
               src={getImageSrc(currentProject.bgPhoto)}
               alt=""
-              className="w-full h-full object-cover opacity-45 blur-[3px] scale-105 animate-crossfade"
+              className="w-full h-full object-cover opacity-50 blur-[3px] scale-105 animate-crossfade"
             />
-            <div className="absolute inset-0 bg-[#2E6B3F]/55" />
+            <div className="absolute inset-0 bg-[#F7F2E6]/45" />
           </div>
         )}
 
@@ -666,8 +666,8 @@ export default function Page() {
               {/* ENCABEZADO */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#B7D84B]">
-                    <span className="w-2 h-2 rounded-full bg-[#B7D84B]" />
+                  <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
+                    <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
                     Territorio de Acción
                   </div>
                   {selectedCategory && (
@@ -676,7 +676,7 @@ export default function Page() {
                         setSelectedCategory(null);
                         setMapSelectedProjectId(null);
                       }}
-                      className="text-xs font-bold text-[#B7D84B] hover:text-white inline-flex items-center gap-1.5 transition-colors cursor-pointer group uppercase tracking-wider"
+                      className="text-xs font-bold text-[#2E6B3F] hover:text-[#75B346] inline-flex items-center gap-1.5 transition-colors cursor-pointer group uppercase tracking-wider"
                     >
                       <span className="group-hover:-translate-x-1 transition-transform">←</span> Volver a categorías
                     </button>
@@ -685,19 +685,19 @@ export default function Page() {
 
                 {/* Si se seleccionó una categoría (o se tocó un punto del mapa), la categoría pasa a ser el título */}
                 {selectedCategory ? (
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight animate-fadeIn">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#142b1f] tracking-tight leading-tight animate-fadeIn">
                     {categoryLabels[selectedCategory]}
                   </h2>
                 ) : (
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                    Lugares donde <span className="text-[#B7D84B]">ayudamos</span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] tracking-tight leading-tight">
+                    Lugares donde <span className="text-[#75B346]">ayudamos</span>
                   </h2>
                 )}
               </div>
 
               {/* 1. VISTA INICIAL: AL ENTRAR ESTÁN SOLO LAS TRES CATEGORÍAS (FINAS, SIN PASTILLAS) */}
               {!selectedCategory ? (
-                <div className="divide-y divide-white/15 pt-2 border-t border-b border-white/15">
+                <div className="divide-y divide-black/15 pt-2 border-t border-b border-black/15">
                   {(["proyectos", "experiencias", "empresas"] as const).map((cat) => (
                     <button
                       key={cat}
@@ -705,12 +705,12 @@ export default function Page() {
                         setSelectedCategory(cat);
                         setMapSelectedProjectId(null);
                       }}
-                      className="w-full py-5 text-left flex items-center justify-between text-white hover:text-[#B7D84B] transition-colors group cursor-pointer"
+                      className="w-full py-5 text-left flex items-center justify-between text-[#142b1f] hover:text-[#75B346] transition-colors group cursor-pointer"
                     >
                       <span className="text-lg sm:text-xl font-bold tracking-tight">
                         {categoryLabels[cat]}
                       </span>
-                      <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-[#B7D84B] group-hover:translate-x-1 transition-all" />
+                      <ChevronRight className="w-5 h-5 text-neutral-400 group-hover:text-[#75B346] group-hover:translate-x-1 transition-all" />
                     </button>
                   ))}
                 </div>
@@ -719,32 +719,32 @@ export default function Page() {
                 (() => {
                   const proj = projectsList.find(p => p.id === mapSelectedProjectId) || currentProject;
                   return (
-                    <div className="pt-2 border-t border-b border-white/15 animate-fadeIn space-y-4">
+                    <div className="pt-2 border-t border-b border-black/15 animate-fadeIn space-y-4">
                       <div className="py-5 flex items-center justify-between group">
                         <div className="space-y-1">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#B7D84B] block">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#75B346] block">
                             Punto seleccionado en el mapa
                           </span>
-                          <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                          <h3 className="text-2xl sm:text-3xl font-bold text-[#142b1f]">
                             {proj.name}
                           </h3>
-                          <span className="text-xs text-[#E6D3B8]/85 font-medium block">
+                          <span className="text-xs text-neutral-500 font-medium block">
                             {proj.place} &bull; {proj.tag}
                           </span>
                         </div>
                         <Link
                           href={proj.ctaLink}
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-[#B7D84B] hover:text-white transition-colors group cursor-pointer shrink-0 ml-4"
+                          className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2E6B3F] hover:text-[#75B346] transition-colors group cursor-pointer shrink-0 ml-4"
                         >
                           <span>Conocer más</span>
-                          <ArrowUpRight className="w-4 h-4 text-white/70 group-hover:text-[#B7D84B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                          <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#75B346] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                         </Link>
                       </div>
                       
-                      <div className="py-3 flex items-center justify-between text-xs border-t border-white/15">
+                      <div className="py-3 flex items-center justify-between text-xs border-t border-black/10">
                         <button
                           onClick={() => setMapSelectedProjectId(null)}
-                          className="text-[#B7D84B] hover:text-white font-bold transition-colors cursor-pointer"
+                          className="text-[#2E6B3F] hover:text-[#75B346] font-bold transition-colors cursor-pointer"
                         >
                           Ver todos los proyectos de esta categoría ({projectsList.filter(p => p.category === selectedCategory).length}) →
                         </button>
@@ -754,7 +754,7 @@ export default function Page() {
                 })()
               ) : (
                 /* 3. SI DIO CLIC EN UNA CATEGORÍA: SALEN DIRECTO SUS PROYECTOS (FINOS, SIN PÁRRAFOS NI PASTILLAS) */
-                <div className="divide-y divide-white/15 pt-2 border-t border-b border-white/15 animate-fadeIn">
+                <div className="divide-y divide-black/15 pt-2 border-t border-b border-black/15 animate-fadeIn">
                   {projectsList
                     .filter(p => p.category === selectedCategory)
                     .map((proj) => {
@@ -766,20 +766,20 @@ export default function Page() {
                           className="py-4 flex items-center justify-between transition-colors group cursor-pointer"
                         >
                           <div className="space-y-0.5">
-                            <span className={`text-base sm:text-lg font-bold transition-colors ${isMapActive ? "text-[#B7D84B]" : "text-white group-hover:text-[#B7D84B]"}`}>
+                            <span className={`text-base sm:text-lg font-bold transition-colors ${isMapActive ? "text-[#75B346]" : "text-[#142b1f] group-hover:text-[#75B346]"}`}>
                               {proj.name}
                             </span>
-                            <span className="text-xs text-[#E6D3B8]/85 block">
+                            <span className="text-xs text-neutral-500 block">
                               {proj.place} &bull; {proj.tag}
                             </span>
                           </div>
                           <Link
                             href={proj.ctaLink}
                             onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B7D84B] group-hover:text-white transition-colors shrink-0 ml-4"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2E6B3F] group-hover:text-[#75B346] transition-colors shrink-0 ml-4"
                           >
                             <span>Conocer más</span>
-                            <ArrowUpRight className="w-4 h-4 text-white/70 group-hover:text-[#B7D84B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                            <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#75B346] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                           </Link>
                         </div>
                       );
@@ -801,14 +801,14 @@ export default function Page() {
         {/* Título pegado al lado izquierdo de la galería */}
         <div className="w-full px-6 sm:px-10 lg:px-12 mb-10">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#B7D84B] mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#B7D84B]" />
+            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
               Experiencias en Campo
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
               Galería de <span className="text-[#E3A72F]">vivencias y territorio.</span>
             </h2>
-            <p className="text-[#F7F2E6]/80 mt-2 text-base">
+            <p className="text-neutral-600 mt-2 text-base">
               Momentos reales de voluntariado, siembra, rescate de saberes y trabajo comunitario en la Amazonía ecuatoriana.
             </p>
           </div>
@@ -878,23 +878,23 @@ export default function Page() {
       {/* ============================================================== */}
       {/* 6. LOGOS DE ALIANZAS Y PATROCINADORES EN MOVIMIENTO CONTINUO */}
       {/* ============================================================== */}
-      <section className="py-12 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto border-t border-b border-white/15">
-        <p className="text-xs uppercase font-bold tracking-wider text-[#E6D3B8] mb-6 text-center">
+      <section className="py-12 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto border-t border-b border-black/10">
+        <p className="text-xs uppercase font-bold tracking-wider text-neutral-400 mb-6 text-center">
           Alianzas y Patrocinadores
         </p>
         <div className="relative w-full overflow-hidden">
-          <div className="animate-marquee flex items-center gap-12 sm:gap-16 text-lg sm:text-xl font-bold tracking-tight text-white/90">
-            <span className="hover:text-[#B7D84B] transition-colors cursor-default">Responsible Travel</span>
-            <span className="text-[#B7D84B]">•</span>
-            <span className="hover:text-[#B7D84B] transition-colors cursor-default">Sandberg Santana</span>
-            <span className="text-[#B7D84B]">•</span>
-            <span className="hover:text-[#B7D84B] transition-colors cursor-default">Sandberg Eco Consulting</span>
-            <span className="text-[#B7D84B]">•</span>
-            <span className="hover:text-[#B7D84B] transition-colors cursor-default">Responsible Travel</span>
-            <span className="text-[#B7D84B]">•</span>
-            <span className="hover:text-[#B7D84B] transition-colors cursor-default">Sandberg Santana</span>
-            <span className="text-[#B7D84B]">•</span>
-            <span className="hover:text-[#B7D84B] transition-colors cursor-default">Sandberg Eco Consulting</span>
+          <div className="animate-marquee flex items-center gap-12 sm:gap-16 text-lg sm:text-xl font-bold tracking-tight text-[#142b1f]/80">
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Responsible Travel</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Santana</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Eco Consulting</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Responsible Travel</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Santana</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Eco Consulting</span>
           </div>
         </div>
       </section>
@@ -904,12 +904,12 @@ export default function Page() {
       {/* ============================================================== */}
       <section id="equipo" className="py-24 px-6 sm:px-10 lg:px-14 w-full max-w-[1680px] mx-auto">
         <div className="max-w-2xl mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#B7D84B] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#B7D84B]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
             Equipo de Trabajo
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
-            Quienes caminan <span className="text-[#B7D84B]">junto al territorio.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
+            Quienes caminan <span className="text-[#75B346]">junto al territorio.</span>
           </h2>
         </div>
 
