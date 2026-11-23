@@ -25,26 +25,6 @@ interface EcuadorMapProps {
   onSelectProject: (proj: MapProject) => void;
 }
 
-// Clasificación de regiones para gradientes topográficos (Cordillera Sierra, Amazonía, Costa)
-const SIERRA_PROVINCES = new Set([
-  "Carchi", "Imbabura", "Pichincha", "Cotopaxi", "Tungurahua",
-  "Bolivar", "Chimborazo", "Cañar", "Azuay", "Loja"
-]);
-
-const AMAZONIA_PROVINCES = new Set([
-  "Sucumbios", "Orellana", "Napo", "Pastaza", "Morona Santiago", "Zamora Chinchipe"
-]);
-
-function getProvinceColor(name: string): string {
-  if (SIERRA_PROVINCES.has(name)) {
-    return "url(#grad-sierra)";
-  }
-  if (AMAZONIA_PROVINCES.has(name)) {
-    return "url(#grad-amazonia)";
-  }
-  return "url(#grad-costa)";
-}
-
 export default function EcuadorMap({ projects, activeProjectId, onSelectProject }: EcuadorMapProps) {
   const [hoveredProvince, setHoveredProvince] = useState<string | null>(null);
 
@@ -54,8 +34,8 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
   return (
     <div className="relative w-full max-w-[860px] mx-auto select-none">
       
-      {/* MAPA PRINCIPAL: ECUADOR CONTINENTAL (Más grande, con relieve + textura de curvas de nivel topográficas) */}
-      <div className="relative w-full aspect-[1.06/1] drop-shadow-[0_22px_38px_rgba(20,43,31,0.18)]">
+      {/* MAPA PRINCIPAL: ECUADOR CONTINENTAL (Relieve hipsométrico continuo + sombreado 3D multifrecuencia realista) */}
+      <div className="relative w-full aspect-[1.06/1] drop-shadow-[0_24px_40px_rgba(20,43,31,0.22)]">
         <ComposableMap
           width={800}
           height={740}
@@ -67,118 +47,97 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           className="w-full h-full"
         >
           <defs>
-            {/* Gradiente Cordillera de los Andes (Sierra) */}
-            <linearGradient id="grad-sierra" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#c28c4e" />
-              <stop offset="50%" stopColor="#a36f38" />
-              <stop offset="100%" stopColor="#825324" />
+            {/* Gradiente hipsométrico continuo Oeste -> Centro -> Este (Costa -> Cordillera de los Andes -> Amazonía) */}
+            <linearGradient
+              id="ecuador-hypsometric"
+              gradientUnits="userSpaceOnUse"
+              x1="130"
+              y1="140"
+              x2="660"
+              y2="290"
+            >
+              <stop offset="0%" stopColor="#56823e" />
+              <stop offset="22%" stopColor="#659148" />
+              <stop offset="33%" stopColor="#8a6c3a" />
+              <stop offset="44%" stopColor="#a9753c" />
+              <stop offset="53%" stopColor="#8b6233" />
+              <stop offset="63%" stopColor="#3b6e3e" />
+              <stop offset="82%" stopColor="#285630" />
+              <stop offset="100%" stopColor="#1b4022" />
             </linearGradient>
 
-            {/* Gradiente Selva Amazónica */}
-            <linearGradient id="grad-amazonia" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3b7845" />
-              <stop offset="55%" stopColor="#2b5d34" />
-              <stop offset="100%" stopColor="#1c4223" />
-            </linearGradient>
-
-            {/* Gradiente Costa */}
-            <linearGradient id="grad-costa" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#72a152" />
-              <stop offset="55%" stopColor="#5c8740" />
-              <stop offset="100%" stopColor="#466b2e" />
-            </linearGradient>
-
-            {/* Patrón de curvas de nivel topográficas sutiles */}
-            <pattern id="topo-contours" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path
-                d="M0 15 Q 15 5, 30 15 T 60 15 M0 35 Q 20 22, 35 35 T 60 35 M0 55 Q 15 44, 32 55 T 60 55"
-                fill="none"
-                stroke="rgba(255, 250, 235, 0.16)"
-                strokeWidth="0.9"
-              />
-              <path
-                d="M10 0 Q 22 18, 10 35 T 10 60 M42 0 Q 54 20, 40 38 T 42 60"
-                fill="none"
-                stroke="rgba(20, 43, 31, 0.12)"
-                strokeWidth="0.7"
-              />
-            </pattern>
-
-            {/* Filtro de textura topográfica / relieve montañoso más marcado */}
-            <filter id="topo-relief" x="-5%" y="-5%" width="110%" height="110%">
+            {/* Filtro de relieve topográfico realista multifrecuencia (macro-cordilleras + micro-textura de terreno) */}
+            <filter id="topo-realistic" x="-8%" y="-8%" width="116%" height="116%">
+              {/* Macro relieve (grandes cadenas montañosas y valles) */}
               <feTurbulence
                 type="fractalNoise"
-                baseFrequency="0.065"
-                numOctaves="6"
-                seed="11"
-                result="terrainNoise"
+                baseFrequency="0.022 0.028"
+                numOctaves="5"
+                seed="14"
+                result="macroNoise"
               />
               <feDiffuseLighting
-                in="terrainNoise"
-                lightingColor="#fff8e8"
-                surfaceScale="3.8"
-                diffuseConstant="1.2"
-                result="hillshade"
+                in="macroNoise"
+                lightingColor="#fff6e0"
+                surfaceScale="6.5"
+                diffuseConstant="1.25"
+                result="macroLight"
               >
-                <feDistantLight azimuth="315" elevation="42" />
+                <feDistantLight azimuth="315" elevation="38" />
               </feDiffuseLighting>
-              <feComposite
-                in="hillshade"
-                in2="SourceGraphic"
-                operator="in"
-                result="clippedHillshade"
+
+              {/* Micro relieve (rugosidad natural de quebradas, bosques y suelo) */}
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.095"
+                numOctaves="4"
+                seed="29"
+                result="microNoise"
               />
-              <feBlend
-                in="SourceGraphic"
-                in2="clippedHillshade"
-                mode="multiply"
-              />
+              <feDiffuseLighting
+                in="microNoise"
+                lightingColor="#ffffff"
+                surfaceScale="2.6"
+                diffuseConstant="1.1"
+                result="microLight"
+              >
+                <feDistantLight azimuth="310" elevation="45" />
+              </feDiffuseLighting>
+
+              {/* Combinar macro + micro relieve */}
+              <feBlend in="macroLight" in2="microLight" mode="multiply" result="combinedLight" />
+
+              {/* Recortar exactamente al territorio y multiplicar sobre el color hipsométrico */}
+              <feComposite in="combinedLight" in2="SourceGraphic" operator="in" result="clippedRelief" />
+              <feBlend in="SourceGraphic" in2="clippedRelief" mode="multiply" />
             </filter>
           </defs>
 
-          {/* Capa base con relieve topográfico 3D */}
-          <g filter="url(#topo-relief)">
+          {/* Territorio Continental con textura topográfica realista continua */}
+          <g filter="url(#topo-realistic)">
             <Geographies geography={continentGeography}>
               {({ geographies }) =>
                 geographies.map((geo) => {
                   const name = geo.properties?.name || "";
                   const isHovered = hoveredProvince === name;
-                  const fillUrl = getProvinceColor(name);
 
                   return (
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      fill={isHovered ? "#9ecb36" : fillUrl}
-                      stroke={isHovered ? "#ffffff" : "rgba(255, 255, 255, 0.35)"}
-                      strokeWidth={isHovered ? 1.2 : 0.8}
+                      fill={isHovered ? "#9ecb36" : "url(#ecuador-hypsometric)"}
+                      stroke={isHovered ? "rgba(255,255,255,0.85)" : "rgba(255, 255, 255, 0.16)"}
+                      strokeWidth={isHovered ? 1 : 0.45}
                       onMouseEnter={() => setHoveredProvince(name)}
                       onMouseLeave={() => setHoveredProvince(null)}
                       style={{
-                        fill: isHovered ? "#9ecb36" : fillUrl,
+                        fill: isHovered ? "#9ecb36" : "url(#ecuador-hypsometric)",
                         outline: "none",
                         transition: "fill 220ms ease"
                       }}
                     />
                   );
                 })
-              }
-            </Geographies>
-          </g>
-
-          {/* Capa superpuesta de curvas de nivel topográficas */}
-          <g className="pointer-events-none">
-            <Geographies geography={continentGeography}>
-              {({ geographies }) =>
-                geographies.map((geo) => (
-                  <Geography
-                    key={`${geo.rsmKey}-contours`}
-                    geography={geo}
-                    fill="url(#topo-contours)"
-                    stroke="none"
-                    style={{ fill: "url(#topo-contours)", outline: "none" }}
-                  />
-                ))
               }
             </Geographies>
           </g>
@@ -196,7 +155,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                 <circle
                   r={isSelected ? 18 : 10}
                   fill={isSelected ? "#9ecb36" : "#225333"}
-                  opacity={isSelected ? 0.75 : 0.28}
+                  opacity={isSelected ? 0.75 : 0.3}
                   className={isSelected ? "animate-pulse-pin" : "group-hover:opacity-65 transition-opacity"}
                 />
 
@@ -233,8 +192,8 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           })}
         </ComposableMap>
 
-        {/* ISLAS GALÁPAGOS FLOTANDO LIBRES (SIN CAJA NI CUADRADO QUE LAS CUBRA) */}
-        <div className="absolute top-[2%] left-[0%] w-[28%] aspect-square pointer-events-auto drop-shadow-[0_12px_20px_rgba(20,43,31,0.16)]">
+        {/* ISLAS GALÁPAGOS FLOTANDO LIBRES (Con relieve volcánico realista, sin caja cuadrada) */}
+        <div className="absolute top-[2%] left-[0%] w-[28%] aspect-square pointer-events-auto drop-shadow-[0_14px_22px_rgba(20,43,31,0.18)]">
           <ComposableMap
             width={300}
             height={300}
@@ -247,28 +206,21 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           >
             <defs>
               <linearGradient id="grad-galapagos" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#619149" />
-                <stop offset="100%" stopColor="#3c662d" />
+                <stop offset="0%" stopColor="#6b964c" />
+                <stop offset="50%" stopColor="#587b3c" />
+                <stop offset="100%" stopColor="#3c5e2c" />
               </linearGradient>
-              <pattern id="galapagos-contours" width="36" height="36" patternUnits="userSpaceOnUse">
-                <path
-                  d="M0 10 Q 10 3, 18 10 T 36 10 M0 26 Q 12 18, 22 26 T 36 26"
-                  fill="none"
-                  stroke="rgba(255, 250, 235, 0.22)"
-                  strokeWidth="0.7"
-                />
-              </pattern>
-              <filter id="galapagos-relief" x="-10%" y="-10%" width="120%" height="120%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="5" seed="4" result="noise" />
-                <feDiffuseLighting in="noise" lightingColor="#fff8e8" surfaceScale="3" result="light">
-                  <feDistantLight azimuth="315" elevation="45" />
+              <filter id="galapagos-realistic" x="-12%" y="-12%" width="124%" height="124%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="5" seed="7" result="noise" />
+                <feDiffuseLighting in="noise" lightingColor="#fff6e0" surfaceScale="5" diffuseConstant="1.2" result="light">
+                  <feDistantLight azimuth="315" elevation="38" />
                 </feDiffuseLighting>
                 <feComposite in="light" in2="SourceGraphic" operator="in" result="clipped" />
                 <feBlend in="SourceGraphic" in2="clipped" mode="multiply" />
               </filter>
             </defs>
 
-            <g filter="url(#galapagos-relief)">
+            <g filter="url(#galapagos-realistic)">
               <Geographies geography={galapagosGeography}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
@@ -276,8 +228,8 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                       key={geo.rsmKey}
                       geography={geo}
                       fill={hoveredProvince === "Galápagos" ? "#9ecb36" : "url(#grad-galapagos)"}
-                      stroke="rgba(255, 255, 255, 0.5)"
-                      strokeWidth={0.7}
+                      stroke="rgba(255, 255, 255, 0.3)"
+                      strokeWidth={0.5}
                       onMouseEnter={() => setHoveredProvince("Galápagos")}
                       onMouseLeave={() => setHoveredProvince(null)}
                       style={{
@@ -286,23 +238,6 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                         cursor: "pointer",
                         transition: "fill 220ms ease"
                       }}
-                    />
-                  ))
-                }
-              </Geographies>
-            </g>
-
-            {/* Curvas de nivel sobre Galápagos */}
-            <g className="pointer-events-none">
-              <Geographies geography={galapagosGeography}>
-                {({ geographies }) =>
-                  geographies.map((geo) => (
-                    <Geography
-                      key={`${geo.rsmKey}-contours`}
-                      geography={geo}
-                      fill="url(#galapagos-contours)"
-                      stroke="none"
-                      style={{ fill: "url(#galapagos-contours)", outline: "none" }}
                     />
                   ))
                 }
@@ -355,7 +290,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           <span>Sierra (Cordillera)</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-[#2b5d34]" />
+          <span className="w-3 h-3 bg-[#285630]" />
           <span>Amazonía</span>
         </div>
         <div className="flex items-center gap-1.5">

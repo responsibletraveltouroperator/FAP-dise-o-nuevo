@@ -792,7 +792,31 @@ export default function Page() {
       </section>
 
       {/* ============================================================== */}
-      {/* 6. NUESTRO EQUIPO (DISEÑO EDITORIAL LIMPIO) & ALIADOS EN MOVIMIENTO */}
+      {/* 6. LOGOS DE ALIANZAS Y PATROCINADORES EN MOVIMIENTO CONTINUO */}
+      {/* ============================================================== */}
+      <section className="py-12 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto border-t border-b border-black/10">
+        <p className="text-xs uppercase font-bold tracking-wider text-neutral-400 mb-6 text-center">
+          Alianzas y Patrocinadores
+        </p>
+        <div className="relative w-full overflow-hidden">
+          <div className="animate-marquee flex items-center gap-12 sm:gap-16 text-lg sm:text-xl font-bold tracking-tight text-[#142b1f]/80">
+            <span className="hover:text-[#69a838] transition-colors cursor-default">Responsible Travel</span>
+            <span className="text-[#69a838]">•</span>
+            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Santana</span>
+            <span className="text-[#69a838]">•</span>
+            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Eco Consulting</span>
+            <span className="text-[#69a838]">•</span>
+            <span className="hover:text-[#69a838] transition-colors cursor-default">Responsible Travel</span>
+            <span className="text-[#69a838]">•</span>
+            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Santana</span>
+            <span className="text-[#69a838]">•</span>
+            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Eco Consulting</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 7. NUESTRO EQUIPO (DISEÑO EDITORIAL LIMPIO) */}
       {/* ============================================================== */}
       <section id="equipo" className="py-24 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto">
         <div className="max-w-2xl mb-14">
@@ -806,7 +830,7 @@ export default function Page() {
         </div>
 
         {/* Personas del equipo: Diseño editorial limpio sin cajas blancas cuadradas */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           
           <div className="space-y-3">
             <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-200">
@@ -848,28 +872,6 @@ export default function Page() {
             </div>
           </div>
 
-        </div>
-
-        {/* LOGOS DE ALIANZAS Y PATROCINADORES EN MOVIMIENTO CONTINUO */}
-        <div className="pt-8 border-t border-black/10">
-          <p className="text-xs uppercase font-bold tracking-wider text-neutral-400 mb-6 text-center">
-            Alianzas y Patrocinadores
-          </p>
-          <div className="relative w-full overflow-hidden">
-            <div className="animate-marquee flex items-center gap-12 sm:gap-16 text-lg sm:text-xl font-bold tracking-tight text-[#142b1f]/80">
-              <span className="hover:text-[#69a838] transition-colors cursor-default">Responsible Travel</span>
-              <span className="text-[#69a838]">•</span>
-              <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Santana</span>
-              <span className="text-[#69a838]">•</span>
-              <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Eco Consulting</span>
-              <span className="text-[#69a838]">•</span>
-              <span className="hover:text-[#69a838] transition-colors cursor-default">Responsible Travel</span>
-              <span className="text-[#69a838]">•</span>
-              <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Santana</span>
-              <span className="text-[#69a838]">•</span>
-              <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Eco Consulting</span>
-            </div>
-          </div>
         </div>
 
       </section>
