@@ -544,9 +544,10 @@ export default function Page() {
               Conoce a FAP
             </div>
 
-            {/* Título afirmativo en verde oscuro/negro + Mostaza */}
+            {/* Título afirmativo en verde oscuro/negro + Mostaza en la línea inferior */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] leading-tight">
-              El territorio florece cuando <span className="text-[#E3A72F]">caminamos juntos.</span>
+              El territorio florece cuando<br />
+              <span className="text-[#E3A72F]">caminamos juntos.</span>
             </h2>
 
             {/* LISTA DIRECTA CON LAS 4 VIÑETAS (Todas visibles al mismo tiempo, icono a la izquierda) */}
@@ -628,12 +629,13 @@ export default function Page() {
       {/* ============================================================== */}
       <section id="mapa" className="relative py-24 w-full px-6 sm:px-10 lg:px-12 overflow-hidden">
         
-        {/* Fondo full width que cambia sutilmente con la foto del proyecto */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none transition-opacity duration-700 w-full h-full">
+        {/* Fondo full width que cambia con la foto del proyecto (más visible y con transición suave) */}
+        <div className="absolute inset-0 z-0 opacity-[0.28] pointer-events-none transition-opacity duration-700 w-full h-full">
           <img
+            key={currentProject.id}
             src={getImageSrc(currentProject.bgPhoto)}
             alt=""
-            className="w-full h-full object-cover map-photo-fade"
+            className="w-full h-full object-cover map-photo-fade animate-crossfade"
           />
         </div>
 
@@ -820,7 +822,14 @@ export default function Page() {
             />
           </div>
 
-          {/* Fila superior derecha: 2 cuadrados + 1 rectángulo horizontal (2:1) */}
+          {/* Fila superior derecha: 1 rectángulo horizontal (2:1) + 2 cuadrados */}
+          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
+            <CrossfadeImage
+              src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
+              className="hover:scale-105 transition-transform duration-700"
+            />
+          </div>
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <CrossfadeImage
               src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
@@ -835,22 +844,8 @@ export default function Page() {
               className="hover:scale-105 transition-transform duration-700"
             />
           </div>
-          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
-            <CrossfadeImage
-              src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
-              alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
-              className="hover:scale-105 transition-transform duration-700"
-            />
-          </div>
 
-          {/* Fila inferior derecha: 1 rectángulo horizontal (2:1) + 2 cuadrados */}
-          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
-            <CrossfadeImage
-              src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
-              alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
-              className="hover:scale-105 transition-transform duration-700"
-            />
-          </div>
+          {/* Fila inferior derecha: 2 cuadrados + 1 rectángulo horizontal (2:1) */}
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <CrossfadeImage
               src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
@@ -862,6 +857,13 @@ export default function Page() {
             <CrossfadeImage
               src={getImageSrc(galleryPool[(0 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(0 + galleryTick) % galleryPool.length].alt}
+              className="hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
+            <CrossfadeImage
+              src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
               className="hover:scale-105 transition-transform duration-700"
             />
           </div>
@@ -907,49 +909,62 @@ export default function Page() {
           </h2>
         </div>
 
-        {/* Personas del equipo: Diseño editorial limpio sin cajas blancas cuadradas */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-          
-          <div className="space-y-3">
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-200">
-              <img src={getImageSrc(storyImage)} alt="Dra. Elena Santillán" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h4 className="font-bold text-base text-[#10120f]">Dra. Elena Santillán</h4>
-              <p className="text-xs text-[#2E6B3F] font-semibold">Dirección Ejecutiva</p>
-            </div>
-          </div>
+        {/* Personas del equipo: Estilo retrato editorial sin cápsulas; nombre abajo y descripción corta en hover */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+          {[
+            {
+              name: "Dra. Elena Santillán",
+              role: "Dirección Ejecutiva",
+              bio: "Lidera la estrategia territorial y las alianzas institucionales de conservación en la Amazonía y Galápagos.",
+              img: storyImage
+            },
+            {
+              name: "Ing. Carlos Grefa",
+              role: "Coordinación de Territorio",
+              bio: "Acompaña directamente a las comunidades kichwas y proyectos agroforestales sostenibles en campo.",
+              img: heroImage
+            },
+            {
+              name: "Sofía Alvarado",
+              role: "Responsable de Voluntariado",
+              bio: "Coordina brigadas de reforestación, educación ambiental y experiencias vivenciales de viajeros.",
+              img: communityImage
+            },
+            {
+              name: "Mateo Jaramillo",
+              role: "Alianzas & Sostenibilidad",
+              bio: "Impulsa programas corporativos de Carbon Offset y comercio justo junto al sector privado.",
+              img: seedlingPhotoImage
+            }
+          ].map((member) => (
+            <div
+              key={member.name}
+              className="group relative aspect-[4/5] overflow-hidden bg-neutral-900 rounded-none shadow-md cursor-default"
+            >
+              <img
+                src={getImageSrc(member.img)}
+                alt={member.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              {/* Degradado oscuro inferior para lectura nítida */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-90 group-hover:from-black/95 group-hover:via-black/50 transition-all duration-300" />
 
-          <div className="space-y-3">
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-200">
-              <img src={getImageSrc(heroImage)} alt="Ing. Carlos Grefa" className="w-full h-full object-cover" />
+              {/* Contenido abajo: Nombre y cargo sin cápsulas + descripción corta al pasar el ratón */}
+              <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                <h4 className="font-extrabold text-lg leading-snug tracking-tight text-white">
+                  {member.name}
+                </h4>
+                <p className="text-xs font-bold uppercase tracking-wider text-[#B7D84B] mt-0.5">
+                  {member.role}
+                </p>
+                <div className="max-h-0 opacity-0 group-hover:max-h-28 group-hover:opacity-100 overflow-hidden transition-all duration-300 ease-out">
+                  <p className="text-xs text-white/85 leading-relaxed pt-2.5 border-t border-white/20 mt-2.5">
+                    {member.bio}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h4 className="font-bold text-base text-[#10120f]">Ing. Carlos Grefa</h4>
-              <p className="text-xs text-[#2E6B3F] font-semibold">Coordinación de Territorio</p>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-200">
-              <img src={getImageSrc(communityImage)} alt="Sofía Alvarado" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h4 className="font-bold text-base text-[#10120f]">Sofía Alvarado</h4>
-              <p className="text-xs text-[#2E6B3F] font-semibold">Responsable de Voluntariado</p>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-200">
-              <img src={getImageSrc(seedlingImage)} alt="Mateo Jaramillo" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h4 className="font-bold text-base text-[#10120f]">Mateo Jaramillo</h4>
-              <p className="text-xs text-[#2E6B3F] font-semibold">Alianzas &amp; Sostenibilidad</p>
-            </div>
-          </div>
-
+          ))}
         </div>
 
       </section>
