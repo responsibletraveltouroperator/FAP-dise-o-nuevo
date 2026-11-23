@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -103,7 +103,7 @@ export default function RaicesProductivasPage() {
   const activeZone = plantedZones.find(z => z.id === activeZoneId) || plantedZones[0];
 
   return (
-    <main className="min-h-screen bg-[#f8f4ec] text-[#10120f] selection:bg-[#9ecb36] selection:text-black">
+    <main className="min-h-screen bg-[#F7F2E6] text-[#10120f] selection:bg-[#B7D84B] selection:text-black">
       
       {/* ============================================================== */}
       {/* BARRA SUPERIOR DE NAVEGACIÓN (SIN BORDES REDONDOS) */}
@@ -111,18 +111,18 @@ export default function RaicesProductivasPage() {
       <header className="sticky top-0 z-40 bg-[#142b1f] text-white border-b border-white/10 px-6 sm:px-12 lg:px-16 py-4 flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#9ecb36] hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#B7D84B] hover:text-white transition-colors"
         >
           <span>←</span> Volver al Inicio
         </Link>
         <div className="flex items-center gap-6 text-xs sm:text-sm font-medium">
-          <a href="#respaldo" className="hidden md:inline hover:text-[#9ecb36] transition-colors">Respaldo Técnico</a>
-          <a href="#modalidades" className="hidden md:inline hover:text-[#9ecb36] transition-colors">Modalidades</a>
-          <a href="#transparencia" className="hidden md:inline hover:text-[#9ecb36] transition-colors">Transparencia</a>
+          <a href="#respaldo" className="hidden md:inline hover:text-[#B7D84B] transition-colors">Respaldo Técnico</a>
+          <a href="#modalidades" className="hidden md:inline hover:text-[#B7D84B] transition-colors">Modalidades</a>
+          <a href="#transparencia" className="hidden md:inline hover:text-[#B7D84B] transition-colors">Transparencia</a>
           <a
             href="#modalidades"
             onClick={() => setActiveModalidad("b2c")}
-            className="bg-[#9ecb36] text-[#0c0e0b] px-4 py-2 font-bold rounded-none hover:bg-[#b5e642] transition-colors inline-flex items-center gap-1.5"
+            className="bg-[#B7D84B] text-[#0c0e0b] px-4 py-2 font-bold rounded-none hover:bg-[#b5e642] transition-colors inline-flex items-center gap-1.5"
           >
             Adoptar un Árbol <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
@@ -137,8 +137,8 @@ export default function RaicesProductivasPage() {
           
           {/* Columna Izquierda: Propuesta de Valor */}
           <div className="lg:col-span-7 px-6 sm:px-12 lg:px-16 py-16 lg:py-24 flex flex-col justify-center space-y-8">
-            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#9ecb36]">
-              <span className="w-2 h-2 bg-[#9ecb36]" />
+            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#B7D84B]">
+              <span className="w-2 h-2 bg-[#B7D84B]" />
               Reforestación y Compensación de Carbono
             </div>
 
@@ -147,18 +147,18 @@ export default function RaicesProductivasPage() {
                 <span className="animate-line-reveal">Lo que no se puede reducir,</span>
               </span>
               <span className="block overflow-hidden pb-1">
-                <span className="animate-line-reveal-delay-1 text-[#9ecb36]">se puede compensar.</span>
+                <span className="animate-line-reveal-delay-1 text-[#B7D84B]">se puede compensar.</span>
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-white/80 max-w-2xl leading-relaxed border-l-2 border-[#9ecb36] pl-4">
+            <p className="text-sm sm:text-base text-white/80 max-w-2xl leading-relaxed border-l-2 border-[#B7D84B] pl-4">
               Fusión estratégica de <strong>Adopta un Árbol + Proyecto Carbon Offset</strong>. Cada intervención une ciencia forestal, retención hídrica y economía popular comunitaria en Ecuador.
             </p>
 
             {/* Equivalencias de Impacto (Sin bordes redondos) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="border border-white/15 bg-white/5 p-5 rounded-none space-y-1">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#9ecb36] block">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#B7D84B] block">
                   Fijación por Hectárea
                 </span>
                 <p className="text-2xl font-extrabold text-white">~4 a 8 ton CO₂/año</p>
@@ -167,7 +167,7 @@ export default function RaicesProductivasPage() {
                 </p>
               </div>
               <div className="border border-white/15 bg-white/5 p-5 rounded-none space-y-1">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#9ecb36] block">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#B7D84B] block">
                   Referencia de Escala
                 </span>
                 <p className="text-2xl font-extrabold text-white">2.500 árboles</p>
@@ -193,18 +193,18 @@ export default function RaicesProductivasPage() {
         {/* Garantía Técnica y Operativa (Barra inferior en 3 columnas rectas) */}
         <div className="bg-[#0c0e0b] border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border-l-2 border-[#69a838] pl-4 space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#9ecb36]">01 · Hidrokeeper</span>
+            <div className="border-l-2 border-[#75B346] pl-4 space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#B7D84B]">01 · Hidrokeeper</span>
               <h3 className="text-sm font-bold text-white">Polímero Biodegradable</h3>
               <p className="text-xs text-white/70">Retención óptima de agua y nutrientes en las raíces desde la siembra.</p>
             </div>
-            <div className="border-l-2 border-[#69a838] pl-4 space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#9ecb36]">02 · Cuidado a 5 Años</span>
+            <div className="border-l-2 border-[#75B346] pl-4 space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#B7D84B]">02 · Cuidado a 5 Años</span>
               <h3 className="text-sm font-bold text-white">Supervivencia Garantizada</h3>
               <p className="text-xs text-white/70">Monitoreo técnico, limpieza de malezas y resiembra durante los primeros 5 años.</p>
             </div>
-            <div className="border-l-2 border-[#69a838] pl-4 space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#9ecb36]">03 · Economía Popular</span>
+            <div className="border-l-2 border-[#75B346] pl-4 space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#B7D84B]">03 · Economía Popular</span>
               <h3 className="text-sm font-bold text-white">Gestión Comunitaria Local</h3>
               <p className="text-xs text-white/70">Mano de obra y viveros gestionados directamente por las comunidades locales.</p>
             </div>
@@ -218,12 +218,12 @@ export default function RaicesProductivasPage() {
       <section id="modalidades" className="py-20 px-6 sm:px-12 lg:px-16 max-w-[1400px] mx-auto">
         
         <div className="mb-10 space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#225333]">
-            <span className="w-2 h-2 bg-[#225333]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
+            <span className="w-2 h-2 bg-[#2E6B3F]" />
             Eje de Participación
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
-            Elige cómo <span className="text-[#69a838]">compensar e impactar</span>
+            Elige cómo <span className="text-[#75B346]">compensar e impactar</span>
           </h2>
         </div>
 
@@ -237,7 +237,7 @@ export default function RaicesProductivasPage() {
                 : "bg-white text-[#142b1f] hover:bg-[#f0ece1]"
             }`}
           >
-            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-1 ${activeModalidad === "b2c" ? "text-[#9ecb36]" : "text-[#225333]"}`}>
+            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-1 ${activeModalidad === "b2c" ? "text-[#B7D84B]" : "text-[#2E6B3F]"}`}>
               Modalidad 01
             </span>
             <span className="text-lg font-extrabold block">Adopción Individual o Regalo (B2C)</span>
@@ -251,7 +251,7 @@ export default function RaicesProductivasPage() {
                 : "bg-white text-[#142b1f] hover:bg-[#f0ece1]"
             }`}
           >
-            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-1 ${activeModalidad === "viajeros" ? "text-[#9ecb36]" : "text-[#225333]"}`}>
+            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-1 ${activeModalidad === "viajeros" ? "text-[#B7D84B]" : "text-[#2E6B3F]"}`}>
               Modalidad 02
             </span>
             <span className="text-lg font-extrabold block">Viajeros &amp; Turismo Sostenible</span>
@@ -265,7 +265,7 @@ export default function RaicesProductivasPage() {
                 : "bg-white text-[#142b1f] hover:bg-[#f0ece1]"
             }`}
           >
-            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-1 ${activeModalidad === "b2b" ? "text-[#9ecb36]" : "text-[#225333]"}`}>
+            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-1 ${activeModalidad === "b2b" ? "text-[#B7D84B]" : "text-[#2E6B3F]"}`}>
               Modalidad 03
             </span>
             <span className="text-lg font-extrabold block">Programas Corporativos (B2B)</span>
@@ -280,7 +280,7 @@ export default function RaicesProductivasPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start animate-fadeIn">
               <div className="lg:col-span-7 space-y-6">
                 <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#69a838]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#75B346]">
                     Personas Naturales &amp; Regalos Vivos
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-[#142b1f]">
@@ -298,7 +298,7 @@ export default function RaicesProductivasPage() {
                   </div>
                   <div className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                     <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Condiciones y Costo</span>
-                    <span className="text-sm font-bold text-[#225333]">$20 USD por árbol (semilla, vivero, traslado, siembra y cuidado)</span>
+                    <span className="text-sm font-bold text-[#2E6B3F]">$20 USD por árbol (semilla, vivero, traslado, siembra y cuidado)</span>
                   </div>
                   <div className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                     <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Entregables Digitales</span>
@@ -312,7 +312,7 @@ export default function RaicesProductivasPage() {
               </div>
 
               {/* Simulador Interactivo B2C */}
-              <div className="lg:col-span-5 bg-[#f8f4ec] border border-black/15 p-6 sm:p-8 space-y-6 rounded-none">
+              <div className="lg:col-span-5 bg-[#F7F2E6] border border-black/15 p-6 sm:p-8 space-y-6 rounded-none">
                 <h4 className="text-lg font-extrabold text-[#142b1f] border-b border-black/10 pb-3">
                   Simula tu Adopción Viva
                 </h4>
@@ -328,8 +328,8 @@ export default function RaicesProductivasPage() {
                         onClick={() => setTreeCount(num)}
                         className={`py-2.5 font-bold text-sm border transition-colors cursor-pointer rounded-none ${
                           treeCount === num
-                            ? "bg-[#225333] text-white border-[#225333]"
-                            : "bg-white text-[#142b1f] border-black/15 hover:border-[#225333]"
+                            ? "bg-[#2E6B3F] text-white border-[#2E6B3F]"
+                            : "bg-white text-[#142b1f] border-black/15 hover:border-[#2E6B3F]"
                         }`}
                       >
                         {num}
@@ -345,13 +345,13 @@ export default function RaicesProductivasPage() {
                   </div>
                   <div className="flex items-center justify-between text-xs border-t border-black/10 pt-2">
                     <span className="text-neutral-500">Compensación estimada:</span>
-                    <strong className="text-[#69a838] font-bold">~{co2TonsEstimated} ton CO₂</strong>
+                    <strong className="text-[#75B346] font-bold">~{co2TonsEstimated} ton CO₂</strong>
                   </div>
                 </div>
 
                 <a
                   href={`mailto:support@fapecuador.org?subject=Adopci%C3%B3n%20de%20${treeCount}%20%C3%A1rbol(es)%20FAP`}
-                  className="w-full py-4 px-6 bg-[#9ecb36] hover:bg-[#b5e642] text-[#0c0e0b] font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors rounded-none"
+                  className="w-full py-4 px-6 bg-[#B7D84B] hover:bg-[#b5e642] text-[#0c0e0b] font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors rounded-none"
                 >
                   Adoptar {treeCount} {treeCount === 1 ? "Árbol" : "Árboles"} Ahora
                   <ArrowUpRight className="w-4 h-4" />
@@ -365,7 +365,7 @@ export default function RaicesProductivasPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start animate-fadeIn">
               <div className="lg:col-span-7 space-y-6">
                 <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#69a838]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#75B346]">
                     Carbon Offset Turístico
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-[#142b1f]">
@@ -378,8 +378,8 @@ export default function RaicesProductivasPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Zona 1: Loja */}
-                  <div className="border border-black/15 p-5 bg-[#f8f4ec] space-y-3 rounded-none">
-                    <span className="text-xs font-extrabold uppercase tracking-widest text-[#225333] block">
+                  <div className="border border-black/15 p-5 bg-[#F7F2E6] space-y-3 rounded-none">
+                    <span className="text-xs font-extrabold uppercase tracking-widest text-[#2E6B3F] block">
                       Zona 1 · Loja
                     </span>
                     <h4 className="font-bold text-base text-[#142b1f]">Recuperación Post-Incendios</h4>
@@ -389,8 +389,8 @@ export default function RaicesProductivasPage() {
                   </div>
 
                   {/* Zona 2: Galápagos */}
-                  <div className="border border-black/15 p-5 bg-[#f8f4ec] space-y-3 rounded-none">
-                    <span className="text-xs font-extrabold uppercase tracking-widest text-[#225333] block">
+                  <div className="border border-black/15 p-5 bg-[#F7F2E6] space-y-3 rounded-none">
+                    <span className="text-xs font-extrabold uppercase tracking-widest text-[#2E6B3F] block">
                       Zona 2 · Galápagos (Santa Cruz)
                     </span>
                     <h4 className="font-bold text-base text-[#142b1f]">Siembra Vivencial de Scalesia</h4>
@@ -400,8 +400,8 @@ export default function RaicesProductivasPage() {
                   </div>
                 </div>
 
-                <div className="border-l-2 border-[#69a838] pl-4 py-1">
-                  <span className="text-xs font-bold uppercase text-[#225333] block">Respaldo Internacional</span>
+                <div className="border-l-2 border-[#75B346] pl-4 py-1">
+                  <span className="text-xs font-bold uppercase text-[#2E6B3F] block">Respaldo Internacional</span>
                   <p className="text-sm font-semibold text-[#142b1f]">
                     Caso de éxito junto a <strong>Responsible Travel</strong> y financiamiento de <strong>Kimkim</strong>.
                   </p>
@@ -418,10 +418,10 @@ export default function RaicesProductivasPage() {
                 </div>
                 <a
                   href="mailto:support@fapecuador.org?subject=Compensaci%C3%B3n%20de%20Huella%20de%20Viaje%20%2F%20Operadora"
-                  className="w-full py-4 px-6 bg-[#142b1f] hover:bg-[#225333] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors rounded-none"
+                  className="w-full py-4 px-6 bg-[#142b1f] hover:bg-[#2E6B3F] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors rounded-none"
                 >
                   Compensar Huella de Viaje / Alianza Operadoras
-                  <ArrowUpRight className="w-4 h-4 text-[#9ecb36]" />
+                  <ArrowUpRight className="w-4 h-4 text-[#B7D84B]" />
                 </a>
               </div>
             </div>
@@ -432,7 +432,7 @@ export default function RaicesProductivasPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start animate-fadeIn">
               <div className="lg:col-span-6 space-y-6">
                 <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#69a838]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#75B346]">
                     Empresas Locales e Internacionales
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-[#142b1f]">
@@ -445,28 +445,28 @@ export default function RaicesProductivasPage() {
 
                 <div className="divide-y divide-black/10 border-t border-b border-black/10">
                   <div className="py-3.5">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#225333] block">Sedes Permanentes</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B3F] block">Sedes Permanentes</span>
                     <p className="text-sm font-semibold text-[#142b1f]">Loja y Galápagos (aportes a distancia o patrocinio de lotes completos).</p>
                   </div>
                   <div className="py-3.5">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#225333] block">Cobertura Nacional</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B3F] block">Cobertura Nacional</span>
                     <p className="text-sm font-semibold text-[#142b1f]">Pichincha y otros sectores estratégicos para jornadas presenciales de siembra.</p>
                   </div>
                   <div className="py-3.5">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#225333] block">Beneficios Corporativos</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#2E6B3F] block">Beneficios Corporativos</span>
                     <p className="text-sm font-semibold text-[#142b1f]">Paquetes por colaborador, reportes de impacto ambiental y team building sostenible.</p>
                   </div>
                 </div>
               </div>
 
               {/* Formulario rápido B2B (Sin bordes redondos) */}
-              <div className="lg:col-span-6 bg-[#f8f4ec] border border-black/15 p-6 sm:p-8 rounded-none">
+              <div className="lg:col-span-6 bg-[#F7F2E6] border border-black/15 p-6 sm:p-8 rounded-none">
                 <h4 className="text-lg font-extrabold text-[#142b1f] mb-4">
                   Solicitar Cotización Corporativa a Medida
                 </h4>
                 {b2bSent ? (
                   <div className="p-6 bg-[#142b1f] text-white space-y-2 rounded-none">
-                    <p className="font-bold text-[#9ecb36]">¡Solicitud registrada!</p>
+                    <p className="font-bold text-[#B7D84B]">¡Solicitud registrada!</p>
                     <p className="text-xs text-white/80">
                       Nuestro equipo técnico se contactará contigo a la brevedad. También puedes escribir directamente a <strong>support@fapecuador.org</strong>.
                     </p>
@@ -484,17 +484,17 @@ export default function RaicesProductivasPage() {
                         type="text"
                         required
                         placeholder="Nombre de la empresa"
-                        className="w-full px-4 py-3 bg-white border border-black/15 text-sm focus:outline-none focus:border-[#225333] rounded-none"
+                        className="w-full px-4 py-3 bg-white border border-black/15 text-sm focus:outline-none focus:border-[#2E6B3F] rounded-none"
                       />
                       <input
                         type="email"
                         required
                         placeholder="Correo corporativo"
-                        className="w-full px-4 py-3 bg-white border border-black/15 text-sm focus:outline-none focus:border-[#225333] rounded-none"
+                        className="w-full px-4 py-3 bg-white border border-black/15 text-sm focus:outline-none focus:border-[#2E6B3F] rounded-none"
                       />
                     </div>
                     <select
-                      className="w-full px-4 py-3 bg-white border border-black/15 text-sm focus:outline-none focus:border-[#225333] rounded-none"
+                      className="w-full px-4 py-3 bg-white border border-black/15 text-sm focus:outline-none focus:border-[#2E6B3F] rounded-none"
                     >
                       <option value="lote">Patrocinio de lotes (Loja / Galápagos)</option>
                       <option value="jornada">Jornada presencial de siembra (Pichincha)</option>
@@ -502,10 +502,10 @@ export default function RaicesProductivasPage() {
                     </select>
                     <button
                       type="submit"
-                      className="w-full py-4 px-6 bg-[#225333] hover:bg-[#142b1f] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer rounded-none"
+                      className="w-full py-4 px-6 bg-[#2E6B3F] hover:bg-[#142b1f] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer rounded-none"
                     >
                       Solicitar Cotización B2B
-                      <ArrowUpRight className="w-4 h-4 text-[#9ecb36]" />
+                      <ArrowUpRight className="w-4 h-4 text-[#B7D84B]" />
                     </button>
                   </form>
                 )}
@@ -525,12 +525,12 @@ export default function RaicesProductivasPage() {
       <section id="transparencia" className="py-20 px-6 sm:px-12 lg:px-16 max-w-[1400px] mx-auto border-t border-black/10">
         
         <div className="mb-12 space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#225333]">
-            <span className="w-2 h-2 bg-[#225333]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
+            <span className="w-2 h-2 bg-[#2E6B3F]" />
             Transparencia y Seguimiento
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
-            Zonas plantadas &amp; <span className="text-[#69a838]">bitácora en territorio</span>
+            Zonas plantadas &amp; <span className="text-[#75B346]">bitácora en territorio</span>
           </h2>
         </div>
 
@@ -545,8 +545,8 @@ export default function RaicesProductivasPage() {
                   onClick={() => setActiveZoneId(zone.id)}
                   className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border transition-colors cursor-pointer rounded-none ${
                     activeZoneId === zone.id
-                      ? "bg-[#142b1f] text-[#9ecb36] border-[#142b1f]"
-                      : "bg-white text-[#142b1f] border-black/15 hover:border-[#225333]"
+                      ? "bg-[#142b1f] text-[#B7D84B] border-[#142b1f]"
+                      : "bg-white text-[#142b1f] border-black/15 hover:border-[#2E6B3F]"
                   }`}
                 >
                   {zone.name}
@@ -562,13 +562,13 @@ export default function RaicesProductivasPage() {
 
             <div className="bg-white border border-black/15 p-5 rounded-none flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="space-y-1">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#69a838] block">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#75B346] block">
                   Perímetro Activo · {activeZone.place}
                 </span>
                 <h3 className="text-lg font-extrabold text-[#142b1f]">{activeZone.name}</h3>
                 <p className="text-xs text-neutral-600">{activeZone.detail}</p>
               </div>
-              <span className="text-xs font-bold px-3 py-1.5 bg-[#f8f4ec] border border-black/10 text-[#225333] shrink-0 rounded-none">
+              <span className="text-xs font-bold px-3 py-1.5 bg-[#F7F2E6] border border-black/10 text-[#2E6B3F] shrink-0 rounded-none">
                 {activeZone.species}
               </span>
             </div>
@@ -580,7 +580,7 @@ export default function RaicesProductivasPage() {
               Bitácora de Avances
             </h3>
 
-            <div className="border-l-2 border-[#225333]/30 pl-6 space-y-6">
+            <div className="border-l-2 border-[#2E6B3F]/30 pl-6 space-y-6">
               {timelineMilestones.map((item) => {
                 const isActive = activeTimelineId === item.id;
                 return (
@@ -589,21 +589,21 @@ export default function RaicesProductivasPage() {
                     onClick={() => setActiveTimelineId(item.id)}
                     className={`relative p-5 border transition-all cursor-pointer rounded-none ${
                       isActive
-                        ? "bg-white border-[#225333] shadow-sm"
+                        ? "bg-white border-[#2E6B3F] shadow-sm"
                         : "bg-transparent border-black/10 hover:bg-white/60"
                     }`}
                   >
                     {/* Indicador cuadrado en la línea de tiempo */}
                     <span
                       className={`absolute -left-[31px] top-6 w-3 h-3 border-2 transition-colors rounded-none ${
-                        isActive ? "bg-[#9ecb36] border-[#142b1f]" : "bg-[#f8f4ec] border-[#225333]"
+                        isActive ? "bg-[#B7D84B] border-[#142b1f]" : "bg-[#F7F2E6] border-[#2E6B3F]"
                       }`}
                     />
                     <div className="flex items-center justify-between gap-2 mb-1">
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#69a838]">
+                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#75B346]">
                         {item.date}
                       </span>
-                      <span className="text-[11px] font-extrabold text-[#142b1f] bg-[#f8f4ec] px-2 py-0.5 border border-black/10">
+                      <span className="text-[11px] font-extrabold text-[#142b1f] bg-[#F7F2E6] px-2 py-0.5 border border-black/10">
                         {item.metric}
                       </span>
                     </div>
@@ -632,7 +632,7 @@ export default function RaicesProductivasPage() {
       <footer className="bg-[#0c0e0b] text-white/70 py-10 px-6 sm:px-12 lg:px-16 border-t border-white/10">
         <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <span>&copy; {new Date().getFullYear()} Fundación Amazonía Productiva (FAP) &bull; Reforestación y Carbon Offset</span>
-          <Link href="/" className="text-[#9ecb36] font-bold hover:underline">
+          <Link href="/" className="text-[#B7D84B] font-bold hover:underline">
             ← Regresar a la página principal
           </Link>
         </div>

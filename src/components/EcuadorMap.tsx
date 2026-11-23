@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ComponentProps } from "react";
+import { type ComponentProps } from "react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import continentGeo from "@/assets/ecuador-continent.json";
 import galapagosGeo from "@/assets/ecuador-galapagos.json";
@@ -32,8 +32,6 @@ interface EcuadorMapProps {
 }
 
 export default function EcuadorMap({ projects, activeProjectId, onSelectProject }: EcuadorMapProps) {
-  const [hoveredProvince, setHoveredProvince] = useState<string | null>(null);
-
   const galapagosProject = projects.find(p => p.id === "galapagos");
   const continentProjects = projects.filter(p => p.id !== "galapagos");
 
@@ -43,7 +41,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
   return (
     <div className="relative w-full max-w-[900px] mx-auto select-none">
       
-      {/* MAPA PRINCIPAL: ECUADOR CONTINENTAL (Relieve satelital real proyectado directamente sobre las provincias) */}
+      {/* MAPA PRINCIPAL: ECUADOR CONTINENTAL (Sin efecto hover en provincias; solo los pines son interactivos) */}
       <div className="relative w-full aspect-[1.04/1] drop-shadow-[0_24px_42px_rgba(20,43,31,0.24)]">
         <ComposableMap
           width={800}
@@ -77,30 +75,23 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
             </pattern>
           </defs>
 
-          {/* Provincias pintadas directamente con el patrón del relieve real de Ecuador */}
+          {/* Provincias pintadas directamente con el patrón del relieve real de Ecuador (sin hover) */}
           <Geographies geography={continentGeography}>
             {({ geographies }) =>
-              geographies.map((geo) => {
-                const name = geo.properties?.name || "";
-                const isHovered = hoveredProvince === name;
-
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={isHovered ? "#9ecb36" : "url(#ecuador-topo-pattern)"}
-                    stroke={isHovered ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.25)"}
-                    strokeWidth={isHovered ? 1.2 : 0.55}
-                    onMouseEnter={() => setHoveredProvince(name)}
-                    onMouseLeave={() => setHoveredProvince(null)}
-                    style={{
-                      fill: isHovered ? "#9ecb36" : "url(#ecuador-topo-pattern)",
-                      outline: "none",
-                      transition: "fill 180ms ease"
-                    }}
-                  />
-                );
-              })
+              geographies.map((geo) => (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill="url(#ecuador-topo-pattern)"
+                  stroke="rgba(255, 255, 255, 0.25)"
+                  strokeWidth={0.55}
+                  style={{
+                    fill: "url(#ecuador-topo-pattern)",
+                    outline: "none",
+                    pointerEvents: "none"
+                  }}
+                />
+              ))
             }
           </Geographies>
 
@@ -116,22 +107,22 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
               >
                 <circle
                   r={isSelected ? 18 : 10}
-                  fill={isSelected ? "#9ecb36" : "#ffffff"}
+                  fill={isSelected ? "#B7D84B" : "#ffffff"}
                   opacity={isSelected ? 0.75 : 0.4}
                   className={isSelected ? "animate-pulse-pin" : "group-hover:opacity-75 transition-opacity"}
                 />
 
                 <circle
                   r={isSelected ? 7.5 : 5.5}
-                  fill={isSelected ? "#0c0e0b" : "#142b1f"}
-                  stroke={isSelected ? "#9ecb36" : "#ffffff"}
+                  fill={isSelected ? "#0c0e0b" : "#2E6B3F"}
+                  stroke={isSelected ? "#B7D84B" : "#ffffff"}
                   strokeWidth={isSelected ? 2 : 1.5}
                   className="transition-transform duration-300 group-hover:scale-125"
                 />
 
                 <circle
                   r={isSelected ? 3 : 2}
-                  fill={isSelected ? "#9ecb36" : "#ffffff"}
+                  fill={isSelected ? "#B7D84B" : "#ffffff"}
                 />
 
                 <text
@@ -154,7 +145,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           })}
         </ComposableMap>
 
-        {/* ISLAS GALÁPAGOS CON RELIEVE REAL (Patrón directo sobre cada isla, sin caja cuadrada) */}
+        {/* ISLAS GALÁPAGOS CON RELIEVE REAL (Sin efecto hover en islas; solo el pin interactúa) */}
         <div className="absolute top-[3%] left-[2%] w-[18%] sm:w-[19%] aspect-square pointer-events-auto drop-shadow-[0_10px_18px_rgba(20,43,31,0.2)]">
           <ComposableMap
             width={300}
@@ -193,16 +184,13 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={hoveredProvince === "Galápagos" ? "#9ecb36" : "url(#galapagos-topo-pattern)"}
+                    fill="url(#galapagos-topo-pattern)"
                     stroke="rgba(255, 255, 255, 0.4)"
                     strokeWidth={0.5}
-                    onMouseEnter={() => setHoveredProvince("Galápagos")}
-                    onMouseLeave={() => setHoveredProvince(null)}
                     style={{
-                      fill: hoveredProvince === "Galápagos" ? "#9ecb36" : "url(#galapagos-topo-pattern)",
+                      fill: "url(#galapagos-topo-pattern)",
                       outline: "none",
-                      cursor: "pointer",
-                      transition: "fill 180ms ease"
+                      pointerEvents: "none"
                     }}
                   />
                 ))
@@ -218,26 +206,26 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
               >
                 <circle
                   r={activeProjectId === "galapagos" ? 16 : 9}
-                  fill={activeProjectId === "galapagos" ? "#9ecb36" : "#ffffff"}
+                  fill={activeProjectId === "galapagos" ? "#B7D84B" : "#ffffff"}
                   opacity={activeProjectId === "galapagos" ? 0.75 : 0.4}
                   className={activeProjectId === "galapagos" ? "animate-pulse-pin" : "group-hover:opacity-75"}
                 />
                 <circle
                   r={activeProjectId === "galapagos" ? 6.5 : 5}
-                  fill={activeProjectId === "galapagos" ? "#0c0e0b" : "#142b1f"}
-                  stroke={activeProjectId === "galapagos" ? "#9ecb36" : "#ffffff"}
+                  fill={activeProjectId === "galapagos" ? "#0c0e0b" : "#2E6B3F"}
+                  stroke={activeProjectId === "galapagos" ? "#B7D84B" : "#ffffff"}
                   strokeWidth={activeProjectId === "galapagos" ? 2 : 1.5}
                 />
                 <circle
                   r={activeProjectId === "galapagos" ? 2.5 : 2}
-                  fill={activeProjectId === "galapagos" ? "#9ecb36" : "#ffffff"}
+                  fill={activeProjectId === "galapagos" ? "#B7D84B" : "#ffffff"}
                 />
               </Marker>
             )}
           </ComposableMap>
 
           {/* Etiqueta sutil sin contenedor */}
-          <span className="block text-center text-[9px] font-extrabold uppercase tracking-widest text-[#225333]/85 -mt-3 pointer-events-none">
+          <span className="block text-center text-[9px] font-extrabold uppercase tracking-widest text-[#2E6B3F]/85 -mt-3 pointer-events-none">
             Islas Galápagos
           </span>
         </div>
@@ -247,15 +235,15 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
       {/* Leyenda sutil de regiones naturales de Ecuador */}
       <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-xs font-semibold text-neutral-600">
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-[#4d753b]" />
+          <span className="w-3 h-3 bg-[#75B346]" />
           <span>Costa &amp; Bosques</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-[#8c6b43]" />
+          <span className="w-3 h-3 bg-[#C97B3F]" />
           <span>Cordillera de los Andes</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-[#244d28]" />
+          <span className="w-3 h-3 bg-[#2E6B3F]" />
           <span>Amazonía</span>
         </div>
       </div>

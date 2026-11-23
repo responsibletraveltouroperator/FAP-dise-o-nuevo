@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
@@ -95,7 +95,7 @@ function AnimatedCounter({
 // Iconos directos en verde (SIN círculo de fondo)
 function IconUser() {
   return (
-    <svg className="w-6 h-6 text-[#69a838] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+    <svg className="w-6 h-6 text-[#75B346] shrink-0" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
     </svg>
   );
@@ -103,7 +103,7 @@ function IconUser() {
 
 function IconHeart() {
   return (
-    <svg className="w-6 h-6 text-[#69a838] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+    <svg className="w-6 h-6 text-[#75B346] shrink-0" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
     </svg>
   );
@@ -111,7 +111,7 @@ function IconHeart() {
 
 function IconChart() {
   return (
-    <svg className="w-6 h-6 text-[#69a838] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+    <svg className="w-6 h-6 text-[#75B346] shrink-0" viewBox="0 0 24 24" fill="currentColor">
       <path d="M5 19h2V12H5v7zm4 0h2V9H9v10zm4 0h2V5h-2v14zm4 0h2v-8h-2v8z" />
     </svg>
   );
@@ -119,7 +119,7 @@ function IconChart() {
 
 function IconLeaf() {
   return (
-    <svg className="w-6 h-6 text-[#69a838] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+    <svg className="w-6 h-6 text-[#75B346] shrink-0" viewBox="0 0 24 24" fill="currentColor">
       <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A9.45 9.45 0 0 0 17 8zm-7.5 5.5c2.3 0 4.2-1.9 4.2-4.2 0-.4-.1-.8-.2-1.1A8.9 8.9 0 0 0 9.5 13.5z" />
     </svg>
   );
@@ -330,7 +330,31 @@ export default function Page() {
   const currentProject = projectsList.find(p => p.id === activeProjectId) || projectsList[0];
 
   return (
-    <main id="inicio" className="min-h-screen bg-[#f8f4ec] text-[#10120f] overflow-x-hidden selection:bg-[#9ecb36] selection:text-black">
+    <main id="inicio" className="relative min-h-screen bg-[#F7F2E6] text-[#10120f] overflow-x-hidden selection:bg-[#B7D84B] selection:text-black">
+
+      {/* HALOS DIFUMINADOS ORGÁNICOS SOBRE EL MARFIL (Paleta Identidad FAP: da vida y calidez sutil sin perder claridad) */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden z-0" aria-hidden="true">
+        <div
+          className="absolute top-[18%] -left-32 w-[520px] h-[520px] rounded-full opacity-[0.14] blur-[130px]"
+          style={{ background: "radial-gradient(circle, #B7D84B 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute top-[38%] -right-40 w-[560px] h-[560px] rounded-full opacity-[0.16] blur-[140px]"
+          style={{ background: "radial-gradient(circle, #E3A72F 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute top-[60%] left-[10%] w-[600px] h-[600px] rounded-full opacity-[0.13] blur-[150px]"
+          style={{ background: "radial-gradient(circle, #75B346 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute top-[78%] right-[8%] w-[480px] h-[480px] rounded-full opacity-[0.12] blur-[140px]"
+          style={{ background: "radial-gradient(circle, #2A8C82 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute bottom-[5%] left-[35%] w-[520px] h-[520px] rounded-full opacity-[0.22] blur-[140px]"
+          style={{ background: "radial-gradient(circle, #E6D3B8 0%, transparent 70%)" }}
+        />
+      </div>
       
       {/* ============================================================== */}
       {/* HEADER / NAVBAR */}
@@ -339,19 +363,19 @@ export default function Page() {
         <Logo light />
         
         <nav className={`fixed inset-0 bg-[#0c0e0b]/95 backdrop-blur-xl flex flex-col justify-center items-center gap-6 text-lg font-medium transition-all duration-300 md:static md:inset-auto md:bg-transparent md:backdrop-blur-none md:flex-row md:gap-8 md:text-sm lg:gap-10 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto"}`}>
-          <a href="#nosotros" onClick={() => setMenuOpen(false)} className="hover:text-[#9ecb36] transition-colors">¿Quiénes somos?</a>
-          <a href="#cifras" onClick={() => setMenuOpen(false)} className="hover:text-[#9ecb36] transition-colors">Cifras</a>
-          <a href="#mapa" onClick={() => setMenuOpen(false)} className="hover:text-[#9ecb36] transition-colors">Proyectos &amp; Mapa</a>
-          <a href="#galeria" onClick={() => setMenuOpen(false)} className="hover:text-[#9ecb36] transition-colors">Galería</a>
-          <a href="#equipo" onClick={() => setMenuOpen(false)} className="hover:text-[#9ecb36] transition-colors">Nuestro Equipo</a>
-          <a href="#contacto" onClick={() => setMenuOpen(false)} className="bg-[#9ecb36] text-[#0c0e0b] px-5 py-2.5 rounded-full font-bold hover:bg-[#b5e642] shadow-sm transition-all md:inline-flex items-center gap-2">
+          <a href="#nosotros" onClick={() => setMenuOpen(false)} className="hover:text-[#B7D84B] transition-colors">¿Quiénes somos?</a>
+          <a href="#cifras" onClick={() => setMenuOpen(false)} className="hover:text-[#B7D84B] transition-colors">Cifras</a>
+          <a href="#mapa" onClick={() => setMenuOpen(false)} className="hover:text-[#B7D84B] transition-colors">Proyectos &amp; Mapa</a>
+          <a href="#galeria" onClick={() => setMenuOpen(false)} className="hover:text-[#B7D84B] transition-colors">Galería</a>
+          <a href="#equipo" onClick={() => setMenuOpen(false)} className="hover:text-[#B7D84B] transition-colors">Nuestro Equipo</a>
+          <a href="#contacto" onClick={() => setMenuOpen(false)} className="bg-[#B7D84B] text-[#0c0e0b] px-5 py-2.5 rounded-full font-bold hover:bg-[#b5e642] shadow-sm transition-all md:inline-flex items-center gap-2">
             Quiero ayudar <ArrowUpRight className="w-4 h-4" />
           </a>
         </nav>
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden relative z-40 p-2 text-white hover:text-[#9ecb36] focus:outline-none"
+          className="md:hidden relative z-40 p-2 text-white hover:text-[#B7D84B] focus:outline-none"
           aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
         >
           <div className="w-6 h-5 flex flex-col justify-between">
@@ -391,7 +415,7 @@ export default function Page() {
               <span className="animate-line-reveal">Territorios vivos,</span>
             </span>
             <span className="block overflow-hidden pb-2">
-              <span className="animate-line-reveal-delay-1 text-[#9ecb36]">futuro compartido.</span>
+              <span className="animate-line-reveal-delay-1 text-[#B7D84B]">futuro compartido.</span>
             </span>
           </h1>
 
@@ -400,7 +424,7 @@ export default function Page() {
             <div className="animate-line-reveal-delay-2">
               <a
                 href="#contacto"
-                className="inline-flex items-center gap-2 bg-[#9ecb36] text-[#0c0e0b] px-8 py-4 rounded-xl font-bold text-base hover:bg-[#b5e642] shadow-xl hover:shadow-[#9ecb36]/25 transition-all"
+                className="inline-flex items-center gap-2 bg-[#B7D84B] text-[#0c0e0b] px-8 py-4 rounded-xl font-bold text-base hover:bg-[#b5e642] shadow-xl hover:shadow-[#B7D84B]/25 transition-all"
               >
                 Quiero ayudar / Donar
                 <ArrowUpRight className="w-5 h-5" />
@@ -478,14 +502,14 @@ export default function Page() {
 
           {/* Lado Derecho: Las 4 viñetas visibles a la vez, icono a la izquierda, sin carrusel */}
           <div className="lg:col-span-6 space-y-8">
-            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#225333]">
-              <span className="w-2 h-2 rounded-full bg-[#225333]" />
+            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
+              <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
               Conoce a FAP
             </div>
 
             {/* Título afirmativo */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] leading-tight">
-              El territorio florece cuando <span className="text-[#69a838]">caminamos juntos.</span>
+              El territorio florece cuando <span className="text-[#75B346]">caminamos juntos.</span>
             </h2>
 
             {/* LISTA DIRECTA CON LAS 4 VIÑETAS (Todas visibles al mismo tiempo, icono a la izquierda) */}
@@ -496,12 +520,12 @@ export default function Page() {
                   <div
                     key={item.id}
                     onClick={() => setActiveExpandedId(isExpanded ? null : item.id)}
-                    className="border-b border-black/10 pb-5 pt-3 transition-all duration-300 cursor-pointer group hover:border-[#69a838]/40"
+                    className="border-b border-black/10 pb-5 pt-3 transition-all duration-300 cursor-pointer group hover:border-[#75B346]/40"
                   >
                     {/* Fila del Ícono y Título: SIEMPRE a la izquierda */}
                     <div className="flex items-center gap-3.5">
                       {item.icon}
-                      <h3 className={`text-xl sm:text-2xl font-bold transition-colors ${isExpanded ? "text-[#69a838]" : "text-[#142b1f] group-hover:text-[#69a838]"}`}>
+                      <h3 className={`text-xl sm:text-2xl font-bold transition-colors ${isExpanded ? "text-[#75B346]" : "text-[#142b1f] group-hover:text-[#75B346]"}`}>
                         {item.title}
                       </h3>
                     </div>
@@ -528,7 +552,7 @@ export default function Page() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
           
           <div className="space-y-1">
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#225333] tracking-tight tabular-nums">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2E6B3F] tracking-tight tabular-nums">
               <AnimatedCounter end={150} prefix="+" suffix="K" />
             </span>
             <p className="text-sm sm:text-base font-bold text-[#10120f]">Árboles Protegidos</p>
@@ -536,7 +560,7 @@ export default function Page() {
           </div>
 
           <div className="space-y-1">
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#69a838] tracking-tight tabular-nums">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#75B346] tracking-tight tabular-nums">
               <AnimatedCounter end={42} />
             </span>
             <p className="text-sm sm:text-base font-bold text-[#10120f]">Comunidades Activas</p>
@@ -544,7 +568,7 @@ export default function Page() {
           </div>
 
           <div className="space-y-1">
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#e3a72f] tracking-tight tabular-nums">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#E3A72F] tracking-tight tabular-nums">
               <AnimatedCounter end={1200} prefix="+" useDots />
             </span>
             <p className="text-sm sm:text-base font-bold text-[#10120f]">Infantes y Familias</p>
@@ -552,7 +576,7 @@ export default function Page() {
           </div>
 
           <div className="space-y-1">
-            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#225333] tracking-tight tabular-nums">
+            <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2E6B3F] tracking-tight tabular-nums">
               <AnimatedCounter end={38} />
             </span>
             <p className="text-sm sm:text-base font-bold text-[#10120f]">Emprendimientos</p>
@@ -599,8 +623,8 @@ export default function Page() {
               {/* ENCABEZADO */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#225333]">
-                    <span className="w-2 h-2 rounded-full bg-[#225333]" />
+                  <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F]">
+                    <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
                     Territorio de Acción
                   </div>
                   {selectedCategory && (
@@ -609,7 +633,7 @@ export default function Page() {
                         setSelectedCategory(null);
                         setMapSelectedProjectId(null);
                       }}
-                      className="text-xs font-bold text-[#225333] hover:text-[#69a838] inline-flex items-center gap-1.5 transition-colors cursor-pointer group uppercase tracking-wider"
+                      className="text-xs font-bold text-[#2E6B3F] hover:text-[#75B346] inline-flex items-center gap-1.5 transition-colors cursor-pointer group uppercase tracking-wider"
                     >
                       <span className="group-hover:-translate-x-1 transition-transform">←</span> Volver a categorías
                     </button>
@@ -623,7 +647,7 @@ export default function Page() {
                   </h2>
                 ) : (
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f] tracking-tight leading-tight">
-                    Lugares donde <span className="text-[#69a838]">ayudamos</span>
+                    Lugares donde <span className="text-[#75B346]">ayudamos</span>
                   </h2>
                 )}
               </div>
@@ -638,12 +662,12 @@ export default function Page() {
                         setSelectedCategory(cat);
                         setMapSelectedProjectId(null);
                       }}
-                      className="w-full py-5 text-left flex items-center justify-between text-[#142b1f] hover:text-[#69a838] transition-colors group cursor-pointer"
+                      className="w-full py-5 text-left flex items-center justify-between text-[#142b1f] hover:text-[#75B346] transition-colors group cursor-pointer"
                     >
                       <span className="text-lg sm:text-xl font-bold tracking-tight">
                         {categoryLabels[cat]}
                       </span>
-                      <ArrowUpRight className="w-5 h-5 text-neutral-400 group-hover:text-[#69a838] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                      <ChevronRight className="w-5 h-5 text-neutral-400 group-hover:text-[#75B346] group-hover:translate-x-1 transition-all" />
                     </button>
                   ))}
                 </div>
@@ -655,7 +679,7 @@ export default function Page() {
                     <div className="pt-2 border-t border-b border-black/15 animate-fadeIn space-y-4">
                       <div className="py-5 flex items-center justify-between group">
                         <div className="space-y-1">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#69a838] block">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#75B346] block">
                             Punto seleccionado en el mapa
                           </span>
                           <h3 className="text-2xl sm:text-3xl font-bold text-[#142b1f]">
@@ -667,17 +691,17 @@ export default function Page() {
                         </div>
                         <Link
                           href={proj.ctaLink}
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-[#225333] hover:text-[#69a838] transition-colors group cursor-pointer shrink-0 ml-4"
+                          className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2E6B3F] hover:text-[#75B346] transition-colors group cursor-pointer shrink-0 ml-4"
                         >
                           <span>Conocer más</span>
-                          <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#69a838] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                          <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#75B346] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                         </Link>
                       </div>
                       
                       <div className="py-3 flex items-center justify-between text-xs border-t border-black/10">
                         <button
                           onClick={() => setMapSelectedProjectId(null)}
-                          className="text-[#225333] hover:text-[#69a838] font-bold transition-colors cursor-pointer"
+                          className="text-[#2E6B3F] hover:text-[#75B346] font-bold transition-colors cursor-pointer"
                         >
                           Ver todos los proyectos de esta categoría ({projectsList.filter(p => p.category === selectedCategory).length}) →
                         </button>
@@ -699,7 +723,7 @@ export default function Page() {
                           className="py-4 flex items-center justify-between transition-colors group cursor-pointer"
                         >
                           <div className="space-y-0.5">
-                            <span className={`text-base sm:text-lg font-bold transition-colors ${isMapActive ? "text-[#69a838]" : "text-[#142b1f] group-hover:text-[#69a838]"}`}>
+                            <span className={`text-base sm:text-lg font-bold transition-colors ${isMapActive ? "text-[#75B346]" : "text-[#142b1f] group-hover:text-[#75B346]"}`}>
                               {proj.name}
                             </span>
                             <span className="text-xs text-neutral-500 block">
@@ -709,10 +733,10 @@ export default function Page() {
                           <Link
                             href={proj.ctaLink}
                             onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#225333] group-hover:text-[#69a838] transition-colors shrink-0 ml-4"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2E6B3F] group-hover:text-[#75B346] transition-colors shrink-0 ml-4"
                           >
                             <span>Conocer más</span>
-                            <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#69a838] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                            <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#75B346] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                           </Link>
                         </div>
                       );
@@ -732,12 +756,12 @@ export default function Page() {
       {/* ============================================================== */}
       <section id="galeria" className="py-24 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto">
         <div className="max-w-2xl mb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#225333] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#225333]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
             Experiencias en Campo
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
-            Galería de <span className="text-[#69a838]">vivencias y territorio.</span>
+            Galería de <span className="text-[#75B346]">vivencias y territorio.</span>
           </h2>
           <p className="text-neutral-600 mt-2 text-base">
             Momentos reales de voluntariado, siembra, rescate de saberes y trabajo comunitario en la Amazonía ecuatoriana.
@@ -800,17 +824,17 @@ export default function Page() {
         </p>
         <div className="relative w-full overflow-hidden">
           <div className="animate-marquee flex items-center gap-12 sm:gap-16 text-lg sm:text-xl font-bold tracking-tight text-[#142b1f]/80">
-            <span className="hover:text-[#69a838] transition-colors cursor-default">Responsible Travel</span>
-            <span className="text-[#69a838]">•</span>
-            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Santana</span>
-            <span className="text-[#69a838]">•</span>
-            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Eco Consulting</span>
-            <span className="text-[#69a838]">•</span>
-            <span className="hover:text-[#69a838] transition-colors cursor-default">Responsible Travel</span>
-            <span className="text-[#69a838]">•</span>
-            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Santana</span>
-            <span className="text-[#69a838]">•</span>
-            <span className="hover:text-[#69a838] transition-colors cursor-default">Sandberg Eco Consulting</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Responsible Travel</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Santana</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Eco Consulting</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Responsible Travel</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Santana</span>
+            <span className="text-[#75B346]">•</span>
+            <span className="hover:text-[#75B346] transition-colors cursor-default">Sandberg Eco Consulting</span>
           </div>
         </div>
       </section>
@@ -820,12 +844,12 @@ export default function Page() {
       {/* ============================================================== */}
       <section id="equipo" className="py-24 px-6 sm:px-10 lg:px-12 max-w-[1400px] mx-auto">
         <div className="max-w-2xl mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#225333] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#225333]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#2E6B3F] mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#2E6B3F]" />
             Equipo de Trabajo
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142b1f]">
-            Quienes caminan <span className="text-[#69a838]">junto al territorio.</span>
+            Quienes caminan <span className="text-[#75B346]">junto al territorio.</span>
           </h2>
         </div>
 
@@ -838,7 +862,7 @@ export default function Page() {
             </div>
             <div>
               <h4 className="font-bold text-base text-[#10120f]">Dra. Elena Santillán</h4>
-              <p className="text-xs text-[#225333] font-semibold">Dirección Ejecutiva</p>
+              <p className="text-xs text-[#2E6B3F] font-semibold">Dirección Ejecutiva</p>
             </div>
           </div>
 
@@ -848,7 +872,7 @@ export default function Page() {
             </div>
             <div>
               <h4 className="font-bold text-base text-[#10120f]">Ing. Carlos Grefa</h4>
-              <p className="text-xs text-[#225333] font-semibold">Coordinación de Territorio</p>
+              <p className="text-xs text-[#2E6B3F] font-semibold">Coordinación de Territorio</p>
             </div>
           </div>
 
@@ -858,7 +882,7 @@ export default function Page() {
             </div>
             <div>
               <h4 className="font-bold text-base text-[#10120f]">Sofía Alvarado</h4>
-              <p className="text-xs text-[#225333] font-semibold">Responsable de Voluntariado</p>
+              <p className="text-xs text-[#2E6B3F] font-semibold">Responsable de Voluntariado</p>
             </div>
           </div>
 
@@ -868,7 +892,7 @@ export default function Page() {
             </div>
             <div>
               <h4 className="font-bold text-base text-[#10120f]">Mateo Jaramillo</h4>
-              <p className="text-xs text-[#225333] font-semibold">Alianzas &amp; Sostenibilidad</p>
+              <p className="text-xs text-[#2E6B3F] font-semibold">Alianzas &amp; Sostenibilidad</p>
             </div>
           </div>
 
@@ -907,12 +931,12 @@ export default function Page() {
                 <input
                   type="email"
                   placeholder="Tu correo electrónico..."
-                  className="w-full bg-white/10 border border-white/20 text-white placeholder-neutral-400 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#9ecb36]"
+                  className="w-full bg-white/10 border border-white/20 text-white placeholder-neutral-400 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#B7D84B]"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-[#9ecb36] hover:bg-[#b5e642] text-[#0c0e0b] font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shrink-0"
+                  className="bg-[#B7D84B] hover:bg-[#b5e642] text-[#0c0e0b] font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shrink-0"
                 >
                   Suscribirme
                 </button>
@@ -921,20 +945,20 @@ export default function Page() {
 
             {/* Datos Oficiales de Contacto */}
             <div className="lg:col-span-4 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#9ecb36]">Contacto Oficial</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#B7D84B]">Contacto Oficial</h4>
               <p className="text-sm text-neutral-300">
                 <strong className="block text-white font-semibold">Dirección:</strong>
                 Mariscal Foch E4-261 y Av. Río Amazonas, Quito - Ecuador.
               </p>
               <p className="text-sm text-neutral-300">
                 <strong className="block text-white font-semibold">Teléfono / WhatsApp:</strong>
-                <a href="https://wa.me/593991345174" target="_blank" rel="noopener noreferrer" className="hover:text-[#9ecb36] transition-colors">
+                <a href="https://wa.me/593991345174" target="_blank" rel="noopener noreferrer" className="hover:text-[#B7D84B] transition-colors">
                   +593 99 134 5174
                 </a>
               </p>
               <p className="text-sm text-neutral-300">
                 <strong className="block text-white font-semibold">Correo Electrónico:</strong>
-                <a href="mailto:support@fapecuador.org" className="hover:text-[#9ecb36] transition-colors">
+                <a href="mailto:support@fapecuador.org" className="hover:text-[#B7D84B] transition-colors">
                   support@fapecuador.org
                 </a>
               </p>
@@ -942,21 +966,21 @@ export default function Page() {
 
             {/* Enlaces y Redes Sociales */}
             <div className="lg:col-span-3 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#9ecb36]">Enlaces Legales &amp; Redes</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#B7D84B]">Enlaces Legales &amp; Redes</h4>
               <ul className="space-y-1.5 text-sm text-neutral-300">
-                <li><a href="#inicio" className="hover:text-[#9ecb36] transition-colors">Inicio</a></li>
-                <li><a href="#nosotros" className="hover:text-[#9ecb36] transition-colors">¿Quiénes somos?</a></li>
-                <li><a href="#mapa" className="hover:text-[#9ecb36] transition-colors">Proyectos y Mapa</a></li>
-                <li><a href="#contacto" className="hover:text-[#9ecb36] transition-colors">Política de Privacidad</a></li>
+                <li><a href="#inicio" className="hover:text-[#B7D84B] transition-colors">Inicio</a></li>
+                <li><a href="#nosotros" className="hover:text-[#B7D84B] transition-colors">¿Quiénes somos?</a></li>
+                <li><a href="#mapa" className="hover:text-[#B7D84B] transition-colors">Proyectos y Mapa</a></li>
+                <li><a href="#contacto" className="hover:text-[#B7D84B] transition-colors">Política de Privacidad</a></li>
               </ul>
               <div className="flex items-center gap-4 pt-3">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-neutral-300 hover:text-[#9ecb36] text-sm font-semibold transition-colors">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-neutral-300 hover:text-[#B7D84B] text-sm font-semibold transition-colors">
                   Instagram
                 </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-neutral-300 hover:text-[#9ecb36] text-sm font-semibold transition-colors">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-neutral-300 hover:text-[#B7D84B] text-sm font-semibold transition-colors">
                   Facebook
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-neutral-300 hover:text-[#9ecb36] text-sm font-semibold transition-colors">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-neutral-300 hover:text-[#B7D84B] text-sm font-semibold transition-colors">
                   LinkedIn
                 </a>
               </div>
