@@ -629,14 +629,15 @@ export default function Page() {
       {/* ============================================================== */}
       <section id="mapa" className="relative py-24 w-full px-6 sm:px-10 lg:px-12 overflow-hidden">
         
-        {/* Fondo full width que cambia con la foto del proyecto (más visible y con transición suave) */}
-        <div className="absolute inset-0 z-0 opacity-[0.28] pointer-events-none transition-opacity duration-700 w-full h-full">
+        {/* Fondo full width: foto clara del proyecto con ligero desenfoque de cámara (bokeh suave) */}
+        <div className="absolute inset-0 z-0 pointer-events-none w-full h-full overflow-hidden">
           <img
             key={currentProject.id}
             src={getImageSrc(currentProject.bgPhoto)}
             alt=""
-            className="w-full h-full object-cover map-photo-fade animate-crossfade"
+            className="w-full h-full object-cover opacity-50 blur-[3px] scale-105 animate-crossfade"
           />
+          <div className="absolute inset-0 bg-[#F7F2E6]/45" />
         </div>
 
         <div className="relative z-10 max-w-[1440px] mx-auto">
@@ -822,14 +823,7 @@ export default function Page() {
             />
           </div>
 
-          {/* Fila superior derecha: 1 rectángulo horizontal (2:1) + 2 cuadrados */}
-          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
-            <CrossfadeImage
-              src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
-              alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
-              className="hover:scale-105 transition-transform duration-700"
-            />
-          </div>
+          {/* Fila superior derecha: 2 cuadrados + 1 rectángulo horizontal (2:1) */}
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <CrossfadeImage
               src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
@@ -844,8 +838,22 @@ export default function Page() {
               className="hover:scale-105 transition-transform duration-700"
             />
           </div>
+          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
+            <CrossfadeImage
+              src={getImageSrc(galleryPool[(3 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(3 + galleryTick) % galleryPool.length].alt}
+              className="hover:scale-105 transition-transform duration-700"
+            />
+          </div>
 
-          {/* Fila inferior derecha: 2 cuadrados + 1 rectángulo horizontal (2:1) */}
+          {/* Fila inferior derecha: 1 rectángulo horizontal (2:1) + 2 cuadrados */}
+          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
+            <CrossfadeImage
+              src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
+              alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
+              className="hover:scale-105 transition-transform duration-700"
+            />
+          </div>
           <div className="col-span-1 aspect-square rounded-none overflow-hidden bg-neutral-200">
             <CrossfadeImage
               src={getImageSrc(galleryPool[(1 + galleryTick) % galleryPool.length].img)}
@@ -857,13 +865,6 @@ export default function Page() {
             <CrossfadeImage
               src={getImageSrc(galleryPool[(0 + galleryTick) % galleryPool.length].img)}
               alt={galleryPool[(0 + galleryTick) % galleryPool.length].alt}
-              className="hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-          <div className="col-span-2 aspect-[2/1] rounded-none overflow-hidden bg-neutral-200">
-            <CrossfadeImage
-              src={getImageSrc(galleryPool[(4 + galleryTick) % galleryPool.length].img)}
-              alt={galleryPool[(4 + galleryTick) % galleryPool.length].alt}
               className="hover:scale-105 transition-transform duration-700"
             />
           </div>
