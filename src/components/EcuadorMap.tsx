@@ -53,20 +53,24 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
           className="w-full h-full"
         >
           <defs>
-            {/* Máscara exacta de la silueta de Ecuador continental (elimina mar y países vecinos) */}
-            <clipPath id="ecuador-continent-clip">
+            {/* Máscara exacta de la silueta de Ecuador continental (mask sí soporta <g> de react-simple-maps) */}
+            <mask id="ecuador-continent-mask">
+              <rect x="0" y="0" width="800" height="760" fill="#000000" />
               <Geographies geography={continentGeography}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
                     <Geography
-                      key={`${geo.rsmKey}-clip`}
+                      key={`${geo.rsmKey}-mask`}
                       geography={geo}
-                      style={{ outline: "none" }}
+                      fill="#ffffff"
+                      stroke="#ffffff"
+                      strokeWidth={0.5}
+                      style={{ fill: "#ffffff", outline: "none" }}
                     />
                   ))
                 }
               </Geographies>
-            </clipPath>
+            </mask>
           </defs>
 
           {/* Imagen satelital/física de relieve topográfico real recortada a la silueta de Ecuador */}
@@ -77,7 +81,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
             width="800"
             height="760"
             preserveAspectRatio="none"
-            clipPath="url(#ecuador-continent-clip)"
+            mask="url(#ecuador-continent-mask)"
           />
 
           {/* Capa interactiva de divisiones provinciales sutiles */}
@@ -170,19 +174,23 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
             className="w-full h-full"
           >
             <defs>
-              <clipPath id="galapagos-clip">
+              <mask id="galapagos-mask">
+                <rect x="0" y="0" width="300" height="300" fill="#000000" />
                 <Geographies geography={galapagosGeography}>
                   {({ geographies }) =>
                     geographies.map((geo) => (
                       <Geography
-                        key={`${geo.rsmKey}-clip`}
+                        key={`${geo.rsmKey}-mask`}
                         geography={geo}
-                        style={{ outline: "none" }}
+                        fill="#ffffff"
+                        stroke="#ffffff"
+                        strokeWidth={0.5}
+                        style={{ fill: "#ffffff", outline: "none" }}
                       />
                     ))
                   }
                 </Geographies>
-              </clipPath>
+              </mask>
             </defs>
 
             <image
@@ -192,7 +200,7 @@ export default function EcuadorMap({ projects, activeProjectId, onSelectProject 
               width="300"
               height="300"
               preserveAspectRatio="none"
-              clipPath="url(#galapagos-clip)"
+              mask="url(#galapagos-mask)"
             />
 
             <Geographies geography={galapagosGeography}>
