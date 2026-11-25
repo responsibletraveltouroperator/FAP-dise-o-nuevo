@@ -26,11 +26,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Una sola barra: el recorte horizontal vive en el documento, no en body */
+    overflow-x: clip;
+    overflow-y: auto;
   }
   body {
     background: var(--sand-bg);
     color: var(--black);
-    overflow-x: hidden;
+    max-width: 100%;
   }
   button, a {
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -90,6 +93,29 @@ h1, h2, h3, h4 {
   will-change: transform, opacity;
 }
 
+.animate-line-reveal-delay-3 {
+  display: block;
+  opacity: 0;
+  animation: lineReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.48s forwards;
+  will-change: transform, opacity;
+}
+
+.animate-line-reveal-delay-4 {
+  display: block;
+  opacity: 0;
+  animation: lineReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.64s forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .animate-pulse-pin {
   animation: pulsePin 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
 }
@@ -105,18 +131,80 @@ h1, h2, h3, h4 {
 
 @keyframes crossfadeIn {
   0% {
-    opacity: 0;
-    transform: scale(1.04);
+    opacity: 0.85;
+    -webkit-mask-position: 0% 0%;
+    mask-position: 0% 0%;
+    transform: scale(1.02);
   }
   100% {
     opacity: 1;
+    -webkit-mask-position: 100% 0%;
+    mask-position: 100% 0%;
     transform: scale(1);
   }
 }
 
 .animate-crossfade {
-  animation: crossfadeIn 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  will-change: opacity, transform;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 33%, black 67%, black 100%);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 33%, black 67%, black 100%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: crossfadeIn 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: opacity, transform, mask-position, -webkit-mask-position;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeOnly {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-only {
+  animation: fadeOnly 0.7s ease forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.animate-kenburns {
+  animation: kenburns 22s ease-in-out alternate infinite;
+  will-change: transform;
+}
+
+@keyframes growPlant {
+  from {
+    transform: scale(0.72);
+    transform-origin: bottom center;
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    transform-origin: bottom center;
+    opacity: 1;
+  }
+}
+
+.animate-grow-plant {
+  transform-origin: bottom center;
+  animation: growPlant 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Fondo interactivo del mapa con fundido suave */
